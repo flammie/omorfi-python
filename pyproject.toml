@@ -1,0 +1,45 @@
+[project]
+name = "omorfi"
+version = "0.10.0"
+dependencies = [
+    "pyhfst",
+]
+license = "GPL-3.0-only"
+authors = [{ name = "Flammie A Pirinen", email = "flammie@iki.fi" }]
+description = "Python bindings to omorfi (and a generic FSA runner)"
+readme = "README.md"
+keywords = ["finnish", "nlp", "morphology"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+homepage = "https://flammie.github.io/omorfi-python/"
+repository = "https://github.com/flammie/omorfi-python/"
+
+[tool.poetry.scripts]
+omorfi-conllu = "omorfi.cli.conllu:main"
+omorfi-convert = "omorfi.cli.convert:main"
+omorfi-disamparsulate = "omorfi.cli.disamparsulate:main"
+omorfi-download = "omorfi.cli.downloader:main"
+omorfi-factorise = "omorfi.cli.factorise:main"
+omorfi-freq-evals = "omorfi.cli.freqevals:main"
+omorfi-ftb3 = "omorfi.cli.ftb3:main"
+omorfi-ner = "omorfi.cli.ner:main"
+omorfi-segment = "omorfi.cli.segment:main"
+omorfi-sigmorphons = "omorfi.cli.sigmorphons:main"
+omorfi-tokenise = "omorfi.cli.tokenise:main"
+omorfi-unimorph = "omorfi.cli.unimorph:main"
+omorfi-vislcg = "omorfi.cli.vislcg:main"
+omorfi-wikitable = "omorfi.cli.wikitable:main"
+
+[tool.ruff]
+line-length = 79
+target-version = "py39"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
