@@ -19,7 +19,7 @@
 #
 
 
-__all__ = ['Formatter', 'OmorFormatter']
+__all__ = ["Formatter", "OmorFormatter"]
 
 __version__ = "2018"
 __author__ = "Omorfi contributors"

@@ -31,10 +31,10 @@ class Segmenter:
         self.segmenter = load_hfst(hfstfile)
 
     def _segment(self, token: Token):
-        '''Intenal segmenting using HFST automaton.
+        """Intenal segmenting using HFST automaton.
 
         Args:
-            token: token to segment.'''
+            token: token to segment."""
         res = self.segmenter.lookup(token.surf)
         newsegs = list()
         for r in res:
@@ -50,19 +50,19 @@ class Segmenter:
         return newsegs
 
     def segment(self, token: Token):
-        '''Segment token into morphs, words and other string pieces.
+        """Segment token into morphs, words and other string pieces.
 
         Side-effect:
             this operation stores segments in the token for future
         use and only returns the HFST structures. To get pythonic data use
-        Token's methods afterwards.
+        Token"s methods afterwards.
 
         Args:
             token: token to segment
 
         Returns:
             New segmentations in analysis list
-        '''
+        """
         segments = None
         segments = self._segment(token)
         if not segments or len(segments) < 1:

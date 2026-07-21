@@ -28,14 +28,14 @@ class Generator:
         self.generator = load_hfst(hfstfile)
 
     def _generate(self, s: str):
-        '''Generate surface forms from string using FSA model.
+        """Generate surface forms from string using FSA model.
 
         Args:
             s: string matching raw omor analysis
 
         Returns:
             string containing surface forms
-        '''
+        """
         res = self.generator.lookup(s)
         generations = []
         for r in res:
@@ -43,7 +43,7 @@ class Generator:
         return "/".join(generations)
 
     def generate(self, omorstring: str):
-        '''Generate surface forms corresponding given token description.
+        """Generate surface forms corresponding given token description.
 
         Currently only supports very direct omor style analysis string
         generation.
@@ -54,7 +54,7 @@ class Generator:
         Returns
             A surface string word-form, or the omorstring argument if
             generation fails. Or None if generator is not loaded.
-        '''
+        """
         generated = None
         generated = self._generate(omorstring)
         if not generated:

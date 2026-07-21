@@ -31,7 +31,7 @@ from .error_logging import fail_guess_because
 
 
 def lexc_escape(s):
-    '''Escape symbols that have special meaning in lexc.'''
+    """Escape symbols that have special meaning in lexc."""
     s = s.replace("%", "__PERCENT__")
     s = s.replace(" ", "% ")
     s = s.replace("<", "%<")
@@ -39,65 +39,68 @@ def lexc_escape(s):
     s = s.replace("0", "%0")
     s = s.replace("!", "%!")
     s = s.replace(":", "%:")
-    s = s.replace('"', '%"')
+    s = s.replace("\"", "%\"")
     s = s.replace(";", "%;")
     s = s.replace("__PERCENT__", "%%")
     return s
 
 
 def twolc_escape(s):
-    '''Escape symbols that have special meaning in twolc.'''
+    """Escape symbols that have special meaning in twolc."""
     s = s.replace("%", "__PERCENT__")
-    for c in ' @<>0!:";_^(){}-[]/?+|&*=$,':
+    for c in " @<>0!:\";_^(){}-[]/?+|&*=$,":
         s = s.replace(c, "%" + c)
     s = s.replace("%_%_PERCENT%_%_", "%%")
     return s
 
 
 def egrep2xerox(s, multichars=None):
-    '''Convert POSIX extended regular expression to Xerox dialect'''
+    """Convert POSIX extended regular expression to Xerox dialect"""
     # this is iterative hack for a small subset
-    if '[' in s and ']' in s:
-        left_parts = s.split('[')
+    if "[" in s and "]" in s:
+        left_parts = s.split("[")
         prefix = left_parts[0]
-        right_parts = ''.join(left_parts[1:]).split(']')
+        right_parts = "".join(left_parts[1:]).split("]")
         infix_class = right_parts[0]
-        suffix = ''.join(right_parts[1:])
-        s = prefix + '[' + '|'.join(infix_class) + ']' + suffix
+        suffix = "".join(right_parts[1:])
+        s = prefix + "[" + "|".join(infix_class) + "]" + suffix
     s = s.replace(".", "?")
-    xre = ' '.join(s)
+    xre = " ".join(s)
     return xre
 
 
 def regex_delete_surface(regex, deletion):
+    """FIXME."""
     if not deletion:
         return regex
-    resplit = regex.split(' ')
+    resplit = regex.split(" ")
     for i in range(1, len(deletion) + 1):
-        if deletion[-i] == '0':
+        if deletion[-i] == "0":
             continue
         elif i > len(resplit):
-            resplit = ['?:0'] + resplit
-        elif resplit[-i] == '?':
-            resplit[-i] = '?:0'
-        elif resplit[-i] == '-':
-            resplit[-i] = '%-:0'
+            resplit = ["?:0"] + resplit
+        elif resplit[-i] == "?":
+            resplit[-i] = "?:0"
+        elif resplit[-i] == "-":
+            resplit[-i] = "%-:0"
         elif deletion[-i] == resplit[-i]:
-            resplit[-i] = resplit[-i] + ':0'
+            resplit[-i] = resplit[-i] + ":0"
         else:
             print("DATOISSA VIRHE: ", resplit[-i], "!=", deletion[-i],
                   "comparing", regex, "and", deletion)
-            resplit[-i] = resplit[-i] + ':0'
-    return ' '.join(resplit)
+            resplit[-i] = resplit[-i] + ":0"
+    return " ".join(resplit)
 
 
 # generals
 def require_suffix(wordmap, suffix):
-    if not wordmap['lemma'].endswith(suffix):
+    """Fail if word lemma is not suffixed."""
+    if not wordmap["lemma"].endswith(suffix):
         fail_guess_because(wordmap, [], [suffix])
 
 
 def remove_suffix(s, suffix):
+    """Remove suffix from string."""
     if s.endswith(suffix):
         return s[:s.rfind(suffix)]
     else:
@@ -105,6 +108,7 @@ def remove_suffix(s, suffix):
 
 
 def remove_suffixes_or_die(s, suffixes):
+    """Remove suffix from string or die if suffix not found."""
     for suffix in suffixes:
         nu = remove_suffix(s, suffix)
         if nu != s:
@@ -115,6 +119,7 @@ def remove_suffixes_or_die(s, suffixes):
 
 
 def replace_suffix(s, suffix, repl):
+    """Replace suffix in string."""
     if s.endswith(suffix):
         return s[:s.rfind(suffix)] + repl + s[s.rfind(suffix):]
     else:
@@ -122,6 +127,7 @@ def replace_suffix(s, suffix, repl):
 
 
 def replace_suffixes_or_die(s, suffixes, repl):
+    """Replace one of suffixes or die if not found."""
     for suffix in suffixes:
         nu = replace_suffix(s, suffix, repl)
         if nu != s:
@@ -132,11 +138,13 @@ def replace_suffixes_or_die(s, suffixes, repl):
 
 
 def mangle_suffixes_or_die(wordmap, suffixes):
-    wordmap['bracketstub'] = replace_suffixes_or_die(wordmap['stub'], suffixes,
-                                                     '<Del>→')
-    wordmap['stub'] = remove_suffixes_or_die(wordmap['stub'], suffixes)
-    if wordmap['stub'] is None:
-        print("Word has been misclassified or suffix stripping is insufficient."
+    """Rewrite suffixes or die if no matches."""
+    wordmap["bracketstub"] = replace_suffixes_or_die(wordmap["stub"], suffixes,
+                                                     "<Del>→")
+    wordmap["stub"] = remove_suffixes_or_die(wordmap["stub"], suffixes)
+    if wordmap["stub"] is None:
+        print("Word has been misclassified or "
+              "suffix stripping is insufficient. "
               "Fix the database or stripping rules to continue.",
               "Relevant word entry:\n", wordmap, file=stderr)
         exit(1)
@@ -144,13 +152,13 @@ def mangle_suffixes_or_die(wordmap, suffixes):
 
 
 def replace_rightmost(s, needle, repl):
-    '''Replace one occurrence of rightmost match.'''
+    """Replace one occurrence of rightmost match."""
     return replace_rightmosts(s, [needle], [repl])
 
 
 def replace_rightmosts(s, needles, repls):
-    '''Perform replacement on the rightmost matching substring from the list.
-    '''
+    """Perform replacement on the rightmost matching substring from the list.
+    """
     rm = -1
     rmi = -1
     for i in range(len(needles)):
@@ -167,19 +175,22 @@ def replace_rightmosts(s, needles, repls):
 
 
 def strip_diacritics(s):
-    '''Convert Unicode characters with diacritics to their plain variants.'''
-    return ''.join(c for c in unicodedata.normalize('NFD', s)
-                   if unicodedata.category(c) != 'Mn')
+    """Convert Unicode characters with diacritics to their plain variants."""
+    return "".join(c for c in unicodedata.normalize("NFD", s)
+                   if unicodedata.category(c) != "Mn")
 
 
-r_consonant = r'[kptgbdsfhvjlrmnczwxq]'
-r_syllable = strip_diacritics(
-    r_consonant + '*' + r'([aeiouyäö]|aa|ee|ii|oo|uu|yy|ää|öö|ai|ei|oi|ui|yi|äi|öi|au|eu|iu|ou|ey|iy|äy|öy|ie|uo|yö)' + r_consonant + '*')
-re_two_syllable = re.compile(r'\b(' + r_syllable + r'){2}$')
-re_three_syllable = re.compile(r'\b(' + r_syllable + r'){3}$')
+R_CONSONANT = r"[kptgbdsfhvjlrmnczwxq]"
+R_SYLLABLE = strip_diacritics(
+    R_CONSONANT + "*" + r"([aeiouyäö]|aa|ee|ii|oo|uu|yy|ää|öö|ai|ei|oi|ui|"
+    r"yi|äi|öi|au|eu|iu|ou|ey|iy|äy|öy|ie|uo|yö)" + R_CONSONANT + "*")
+RE_TWO_SYLLABLE = re.compile(r"\b(" + R_SYLLABLE + r"){2}$")
+RE_THREE_SYLLABLE = re.compile(r"\b(" + R_SYLLABLE + r"){3}$")
 
 
 def three_syllable(s):
-    '''Return True if given word, or its last compound part, has unambiguously three syllables.'''
+    """Return True if given word, or its last compound part,
+
+    has unambiguously three syllables."""
     s = strip_diacritics(s.lower())
-    return(re_three_syllable.search(s) and not re_two_syllable.search(s))
+    return RE_THREE_SYLLABLE.search(s) and not RE_TWO_SYLLABLE.search(s)

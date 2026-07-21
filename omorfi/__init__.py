@@ -21,7 +21,7 @@
 
 __all__ = ["Omorfi", "Token"]
 
-__version__ = "0.9.9"
+__version__ = "0.10.0"
 __author__ = "Omorfi contributors"
 __author_email__ = "omorfi-development@googlegroups.com"
 
@@ -64,8 +64,9 @@ def find_omorfi(large_coverage=False) -> str:
         http://flammie.github.io/omorfi/smaller-lexicons.html
     """
     dirs = ["/usr/local/share/omorfi/", "/usr/share/omorfi/"]
-    if os.getenv("HOME"):
-        dirs += [os.getenv("HOME") + "/.local/omorfi/"]
+    homedir = os.getenv("HOME")
+    if homedir:
+        dirs += [homedir + "/.local/omorfi/"]
     if os.getcwd():
         cwd = os.getcwd()
         dirs += [cwd + "/src/generated/", cwd + "/generated/", cwd + "/"]

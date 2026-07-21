@@ -21,20 +21,22 @@
 from sys import stderr
 
 
-def fail_formatting_missing_for(stuff, format, moar=None):
-    print("\033[93mMissing tag!\033[0m Trying to format:", stuff, "for tagset:",
-          format, file=stderr)
+def fail_formatting_missing_for(stuff, fmt, moar=None):
+    """Print colourful error about conversion stuffs."""
+    print(f"\033[93mMissing tag!\033[0m Trying to format:{stuff} for tagset:",
+          fmt, file=stderr)
     if moar:
         print("\033[92mExplanation\033[0m:", moar, file=stderr)
 
 
 def fail_guess_because(wordmap, matches, failures, moar=None):
+    """Print colourful error about paradigm guessing."""
     print("\033[93mUnguessable!\033[0m Following has been seen:", matches,
           "\nfollowing was tested and failed:", failures,
           "\nwhen trying: (",
-          wordmap['lemma'], wordmap['pos'],
-          wordmap['kotus_tn'], wordmap['kotus_av'],
-          wordmap['harmony'], ")", file=stderr)
+          wordmap["lemma"], wordmap["pos"],
+          wordmap["kotus_tn"], wordmap["kotus_av"],
+          wordmap["harmony"], ")", file=stderr)
     if moar:
         print("\033[92mExplanation\033[0m:", moar, file=stderr)
     # This can be used to automate classifying plurales etc.
@@ -44,4 +46,5 @@ def fail_guess_because(wordmap, matches, failures, moar=None):
 
 
 def just_fail(because, file=stderr):
-    print("\033[93mError!\033[0m ", because, file=stderr)
+    """Print generic fail messages."""
+    print("\033[93mError!\033[0m ", because, file=file)

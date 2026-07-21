@@ -27,26 +27,26 @@ class Doc:
         return self.tokens[index]
 
     def __str__(self):
-        s = 'Doc: '
+        s = "Doc: "
         if len(self.tokens) > 10:
-            s += self.tokens[:10] + ', ...'
+            s += self.tokens[:10] + ", ..."
         else:
             s += self.tokens
         return s
 
     def get_sentence(self, index):
-        '''Get a sentence from doc.
+        """Get a sentence from doc.
 
         If doc contains nontokens separating sentences...
-        '''
+        """
         offsets = self.sents[index]
         return self.tokens[offsets[0]:offsets[1]]
 
     def add(self, tokens):
-        '''Add tokens to the documentation.
+        """Add tokens to the documentation.
 
         Adds sentences if they are separated by proper nontokens.
-        '''
+        """
         sent_start = False
         sent_end = -1
         for token in tokens:
@@ -60,31 +60,31 @@ class Doc:
                     self.sents.append([sent_start, sent_end])
 
     def write(self, f):
-        '''Writes self in some format into a file-like object.
+        """Writes self in some format into a file-like object.
 
         Experimental.
-        '''
-        print('"omorfi.Doc": { "tokens": [', file=f)
+        """
+        print("\"omorfi.Doc\": { \"tokens\": [", file=f)
         first = True
         for token in self.tokens:
             if not first:
                 print(",", file=f)
-            print(token, end='', file=f)
+            print(token, end="", file=f)
             first = False
-        print('\n], "sents": [', file=f)
+        print("\n], \"sents\": [", file=f)
         first = True
         for sent in self.sents:
             if not first:
                 print(",", file=f)
-            print('[', sent[0], ', ', sent[1], ']', end='', file=f)
+            print("[", sent[0], ", ", sent[1], "]", end="", file=f)
             first = False
-        print('\n]}', file=f)
+        print("\n]}", file=f)
 
     @staticmethod
     def read(f):
-        '''Reads self from a file-like object.'''
+        """Reads self from a file-like object."""
         line = next(f)
-        if line.strip() != '"omorfi.Doc": { "tokens": [':
+        if line.strip() != "\"omorfi.Doc\": { \"tokens\": [":
             print("Error blerb:", line.strip())
             exit(1)
         doc = Doc()
@@ -96,9 +96,9 @@ class Doc:
                 first, last = line.strip().rstrip(",").rstrip("]"). \
                     strip("[").strip().split(", ")
                 doc.sents.append([first, last])
-            elif '"sents":' in line:
+            elif "\"sents\":" in line:
                 in_sents = True
-            elif '"omorfi.Token":' in line:
+            elif "\"omorfi.Token\":" in line:
                 token = Token.fromstr(line.strip().rstrip(","))
                 doc.tokens.append(token)
         return doc

@@ -21,7 +21,7 @@
 # utils to format apertium style data from omorfi database values
 
 from .formatter import Formatter
-from ..settings import optional_hyphen, word_boundary
+from ..settings import OPTIONAL_HYPHEN, WORD_BOUNDARY
 from ..string_manglers import lexc_escape
 
 
@@ -43,9 +43,9 @@ class NoTagsFormatter(Formatter):
         self.segment = False
         ## if we are creating a lemmatiser
         self.lemmatise = False
-        if 'lemmatise' in kwargs and kwargs['lemmatise']:
+        if "lemmatise" in kwargs and kwargs["lemmatise"]:
             self.lemmatise = True
-        elif 'segment' in kwargs and kwargs['segment']:
+        elif "segment" in kwargs and kwargs["segment"]:
             self.segment = True
 
     def stuff2lexc(self, stuff):
@@ -53,8 +53,8 @@ class NoTagsFormatter(Formatter):
 
         @return empty string unless relevant for lemmatiser or segmenter
         """
-        if stuff == 'Bc':
-            return word_boundary
+        if stuff == "Bc":
+            return WORD_BOUNDARY
         else:
             return ""
 
@@ -63,8 +63,8 @@ class NoTagsFormatter(Formatter):
 
         @return empty string unless relevant for lemmatiser or segmenter
         """
-        apestring = ''
-        for i in anals.split('|'):
+        apestring = ""
+        for i in anals.split("|"):
             apestring += self.stuff2lexc(i)
         return apestring
 
@@ -75,9 +75,9 @@ class NoTagsFormatter(Formatter):
         """
         analstring = self.analyses2lexc(anals)
         # the followings have surface fragments in continuations
-        if 'DIGITS_' in cont and not ('BACK' in cont or 'FRONT' in cont):
+        if "DIGITS_" in cont and not ("BACK" in cont or "FRONT" in cont):
             analstring = lexc_escape(surf) + analstring
-        elif 'PUNCT_NONSTD_EXCL_LOOP' in cont:
+        elif "PUNCT_NONSTD_EXCL_LOOP" in cont:
             analstring = lexc_escape(surf) + analstring
         elif self.segment:
             analstring = lexc_escape(surf)
@@ -92,20 +92,20 @@ class NoTagsFormatter(Formatter):
 
         @return lexc-format entry for lemma/stub analysis
         """
-        if wordmap['lemma'] == ' ':
-            return ''
+        if wordmap["lemma"] == " ":
+            return ""
         if self.lemmatise:
-            wordmap['analysis'] = lexc_escape(wordmap['lemma'])
+            wordmap["analysis"] = lexc_escape(wordmap["lemma"])
         elif self.segment:
-            wordmap['analysis'] = lexc_escape(wordmap['stub'])
+            wordmap["analysis"] = lexc_escape(wordmap["stub"])
         else:
-            wordmap['analysis'] = lexc_escape(wordmap['stub'])
-        wordmap['stub'] = wordmap['stub'].replace(
-            word_boundary, optional_hyphen)
-        wordmap['stub'] = lexc_escape(wordmap['stub'])
-        lexc_line = "%s:%s\t%s\t;\n" % (wordmap['analysis'], wordmap['stub'],
-                                        wordmap['new_para'])
-        if 'BLACKLISTED' in wordmap['new_para']:
+            wordmap["analysis"] = lexc_escape(wordmap["stub"])
+        wordmap["stub"] = wordmap["stub"].replace(
+            WORD_BOUNDARY, OPTIONAL_HYPHEN)
+        wordmap["stub"] = lexc_escape(wordmap["stub"])
+        lexc_line = "%s:%s\t%s\t;\n" % (wordmap["analysis"], wordmap["stub"],
+                                        wordmap["new_para"])
+        if "BLACKLISTED" in wordmap["new_para"]:
             return "! ! !" + lexc_line
         else:
             return lexc_line
@@ -130,6 +130,6 @@ class NoTagsFormatter(Formatter):
 
 
 # self test
-if __name__ == '__main__':
+if __name__ == "__main__":
     formatter = NoTagsFormatter()
     exit(0)

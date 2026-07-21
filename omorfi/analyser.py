@@ -14,11 +14,12 @@ from .analysis import Analysis
 from .hfst import load_hfst
 from .error_logging import just_fail
 
-CAN_UDPIPE = True
 try:
     from ufal.udpipe import Model, Pipeline, ProcessingError
 except ImportError:
     CAN_UDPIPE = False
+else:
+    CAN_UDPIPE = True
 
 
 class Analyser:
@@ -37,8 +38,8 @@ class Analyser:
         self.udpipeline = None
         self.uderror = None
         self.can_udpipe = False
-        self.lexlogprobs = dict()
-        self.taglogprobs = dict()
+        self.lexlogprobs = {}
+        self.taglogprobs = {}
 
     def load_analyser(self, hfstfile: str):
         """Load analyser model from a file.
@@ -77,7 +78,7 @@ class Analyser:
             lexfile: file with frequencies.
         """
         lextotal = 0
-        lexcounts = dict()
+        lexcounts = {}
         for line in lexfile:
             fields = line.split('\t')
             lexcount = int(fields[0])
@@ -99,7 +100,7 @@ class Analyser:
             omorfile: path to file with frequencies.
         """
         omortotal = 0
-        omorcounts = dict()
+        omorcounts = {}
         for line in omorfile:
             fields = line.split('\t')
             omorcount = int(fields[0])
@@ -119,10 +120,10 @@ class Analyser:
         Args:
             token: token to analyse'''
         # use real surface case
-        newanals = list()
+        newanals = []
         res = self.analyser.lookup(token.surf)
         for r in res:
-            omor = r[0] + '[WEIGHT=%f]' % (r[1])
+            omor = f"{r[0]}[WEIGHT={r[1]}]"
             weight = r[1]
             newanals.append(Analysis.fromomor(omor, weight))
         if token.pos == 1 and token.surf[0].isupper()\
@@ -130,7 +131,7 @@ class Analyser:
             res = self.analyser.lookup(token.surf[0].lower()
                                        + token.surf[1:])
             for r in res:
-                omor = r[0] + '[WEIGHT=%f]' % (r[1])
+                omor = f"{r[0]}[WEIGHT={r[1]}]"
                 weight = r[1]
                 newanals.append(Analysis.fromomor(omor, weight))
         for a in newanals:
@@ -231,12 +232,3 @@ class Analyser:
                 continue
             tokens += [Token.fromconllu(conllu)]
         return tokens
-
-
-def main():
-    """Invoke a simple CLI analyser."""
-    exit(0)
-
-
-if __name__ == "__main__":
-    main()

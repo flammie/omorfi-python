@@ -4,10 +4,10 @@
 
 """
 Omorfi tokeniser logic is contained in this class. There is a less
-object oriented version that doesn't use language models or such stuff.
+object oriented version that doesn’t use language models or such stuff.
 """
 
-from .settings import fin_punct_leading, fin_punct_trailing
+from .settings import FIN_PUNCT_LEADING, FIN_PUNCT_TRAILING
 from .analyser import Analyser
 from .token import Token
 from .hfst import load_hfst
@@ -34,9 +34,11 @@ class Tokeniser:
         self.try_lowercase = True
 
     def use_analyser(self, analyser: Analyser):
+        """Use existing analyser as tokeniser."""
         self.analyser = analyser
 
     def load_tokeniser(self, hfstfile: str):
+        """Load an FSA as tokeniser."""
         self.tokeniser = load_hfst(hfstfile)
 
     def _find_retoken_recase(self, token: Token):
@@ -83,8 +85,8 @@ class Tokeniser:
         retoken = self._find_retoken_recase(token)
         if retoken:
             return [retoken]
-        pretokens = []
-        posttokens = []
+        pretokens: list[Token] = []
+        posttokens: list[Token] = []
         for i in range(4):
             for j in range(4):
                 pretokens = []
@@ -93,24 +95,24 @@ class Tokeniser:
                     if j == 0:
                         resurf = token.surf[i:]
                         presurfs = token.surf[:i]
-                        postsurfs = ''
+                        postsurfs = ""
                     else:
                         resurf = token.surf[i:-j]
                         presurfs = token.surf[:i]
                         postsurfs = token.surf[-j:]
                     pretrailpuncts = True
                     for c in presurfs:
-                        if c in fin_punct_leading:
+                        if c in FIN_PUNCT_LEADING:
                             pretoken = Token(c)
-                            pretoken.spaceafter = 'No'
+                            pretoken.spaceafter = "No"
                             pretokens.append(pretoken)
                         else:
                             pretrailpuncts = False
                             break
                     for c in postsurfs:
-                        if c in fin_punct_trailing:
+                        if c in FIN_PUNCT_TRAILING:
                             posttoken = Token(c)
-                            posttoken.spacebefore = 'No'
+                            posttoken.spacebefore = "No"
                             posttokens.append(posttoken)
                         else:
                             pretrailpuncts = False
@@ -157,7 +159,7 @@ class Tokeniser:
         return None
 
     def python_tokenise(self, line: str):
-        """Tokenise with python's basic string functions.
+        """Tokenise with python’s basic string functions.
 
         Args:
             line:  string to tokenise
@@ -172,7 +174,7 @@ class Tokeniser:
         strategy and returned as a list.
 
         If no tokeniser are present, or none give results, the line will be
-        tokenised using python's basic string functions. If analyser is
+        tokenised using python’s basic string functions. If analyser is
         present, tokeniser will try harder to get some analyses for each
         token using hard-coded list of extra splits.
 
@@ -193,19 +195,19 @@ class Tokeniser:
         return tokens
 
     def accept(self, token):
-        '''Check if the token is in the dictionary or not.
+        """Check if the token is in the dictionary or not.
 
         Returns:
             False for OOVs, True otherwise. Note, that this is not
         necessarily more efficient than bool(analyse(token))
-        '''
+        """
         if self.analyser:
             return self.analyser.accept(token)
         else:
             return False
 
     def tokenise_sentence(self, sentence: str):
-        '''tokenise a sentence.
+        """tokenise a sentence.
 
         To be used when text is already sentence-splitted. If the
         text is plain text with sentence boundaries within lines,
@@ -216,11 +218,11 @@ class Tokeniser:
 
         Returns:
             list of tokens in sentence
-        '''
-        if not sentence or sentence == '':
+        """
+        if not sentence or sentence == "":
             token = Token()
-            token.nontoken = 'separator'
-            token.comment = ''
+            token.nontoken = "separator"
+            token.comment = ""
             return [token]
         tokens = self.tokenise(sentence)
         pos = 1
@@ -230,15 +232,15 @@ class Tokeniser:
         return tokens
 
     def tokenise_plaintext(self, f):
-        '''tokenise a whole text.
+        """tokenise a whole text.
 
         Args:
             f: filelike object with iterable strings
 
         Returns:
             list of tokens
-        '''
-        tokens = list()
+        """
+        tokens = []
         for line in f:
             tokens = self.tokenise(line.strip())
             pos = 1
@@ -246,16 +248,16 @@ class Tokeniser:
                 token.pos = pos
                 pos += 1
             sep = Token()
-            sep.nontoken = 'separator'
+            sep.nontoken = "separator"
             tokens.append(sep)
             return tokens
         eoft = Token()
-        eoft.nontoken = 'eof'
+        eoft.nontoken = "eof"
         tokens.append(eoft)
         return tokens
 
     def tokenise_conllu(self, f):
-        '''tokenise a conllu sentence or comment.
+        """tokenise a conllu sentence or comment.
 
         Should be used a file-like iterable that has CONLL-U sentence or
         comment or empty block coming up.
@@ -265,24 +267,24 @@ class Tokeniser:
 
         Returns:
             list of tokens
-        '''
-        tokens = list()
+        """
+        tokens = []
         for line in f:
-            fields = line.strip().split('\t')
+            fields = line.strip().split("\t")
             token = Token()
             if len(fields) != 10:
-                if line.startswith('#'):
-                    token.nontoken = 'comment'
+                if line.startswith("#"):
+                    token.nontoken = "comment"
                     token.comment = line.strip()
                     tokens.append(token)
                     return tokens
-                elif line.strip() == '':
-                    token.nontoken = 'separator'
-                    token.comment = ''
+                elif line.strip() == "":
+                    token.nontoken = "separator"
+                    token.comment = ""
                     tokens.append(token)
                     return tokens
                 else:
-                    token.nontoken = 'error'
+                    token.nontoken = "error"
                     token.error = line.strip()
                     tokens = [token]
                     return tokens
@@ -290,41 +292,41 @@ class Tokeniser:
             try:
                 index = int(fields[0])
             except ValueError:
-                if '-' in fields[0]:
+                if "-" in fields[0]:
                     # MWE
                     continue
-                elif '.' in fields[0]:
+                elif "." in fields[0]:
                     # a ghost
                     continue
                 else:
-                    just_fail('Cannot figure out token index', fields[0])
+                    just_fail("Cannot figure out token index", fields[0])
                     exit(1)
             token.pos = index
             token.surf = fields[1]
-            if fields[9] != '_':
-                miscs = fields[9].split('|')
+            if fields[9] != "_":
+                miscs = fields[9].split("|")
                 for misc in miscs:
-                    k, v = misc.split('=')
-                    if k == 'SpaceAfter':
+                    k, v = misc.split("=")
+                    if k == "SpaceAfter":
                         token.spaceafter = v
-                    elif k in ['Alt', 'FTB-PronType', 'FTB-Rel',
-                               'Missed-Rel', 'FTB-rel', 'Join',
-                               'Missed-SUBCAT', 'FTB-Sub', 'Prefix',
-                               'FTB1-InfForm', 'Missed-POSITION',
-                               'Was18']:
+                    elif k in ["Alt", "FTB-PronType", "FTB-Rel",
+                               "Missed-Rel", "FTB-rel", "Join",
+                               "Missed-SUBCAT", "FTB-Sub", "Prefix",
+                               "FTB1-InfForm", "Missed-POSITION",
+                               "Was18"]:
                         # FTB stuff
                         pass
                     else:
-                        just_fail('Unknown MISC', k)
+                        just_fail("Unknown MISC", k)
                         exit(1)
             tokens.append(token)
         eoft = Token()
-        eoft.nontoken = 'eof'
+        eoft.nontoken = "eof"
         tokens.append(eoft)
         return tokens
 
     def tokenise_vislcg(self, f):
-        '''Tokenises a sentence from VISL-CG format data.
+        """Tokenises a sentence from VISL-CG format data.
 
         Returns a list of tokens when it hits first non-token block, including
         a token representing this non-token block.
@@ -334,42 +336,42 @@ class Tokeniser:
 
         Returns:
             list of tokens
-        '''
-        tokens = list()
+        """
+        tokens = []
         pos = 1
         for line in f:
             token = Token()
             line = line.strip()
-            if not line or line == '':
-                token.nontoken = 'separator'
-                token.comment = ''
+            if not line or line == "":
+                token.nontoken = "separator"
+                token.comment = ""
                 tokens.append(token)
                 return tokens
-            elif line.startswith('#') or line.startswith('<'):
+            elif line.startswith("#") or line.startswith("<"):
                 # # comment, or
                 # <TAG> </TAG>
-                token.nontoken = 'comment'
+                token.nontoken = "comment"
                 token.comment = line.strip()
                 tokens.append(token)
                 return tokens
-            elif line.startswith('"<') and line.endswith('>"'):
+            elif line.startswith("\"<") and line.endswith(">\""):
                 # "<surf>"
                 token = Token()
                 token.surf = line[2:-2]
                 tokens.append(token)
                 pos += 1
-            elif line.startswith('\t"'):
-                # \t"lemma" ANAL ANAL ANAL
+            elif line.startswith("\t\""):
+                # \t\"lemma" ANAL ANAL ANAL
                 fields = line.strip().split()
-                token.lemma = fields[0].strip('"')
-            elif line.startswith(';\t"'):
-                # ;\t"lemma" ANAL ANAL ANAL KEYWORD:rulename
-                token.nontoken = 'gold'
+                token.lemma = fields[0].strip("\"")
+            elif line.startswith(";\t\""):
+                # ;\t\"lemma" ANAL ANAL ANAL KEYWORD:rulename
+                token.nontoken = "gold"
                 token.comment = line.strip()
             else:
-                token.nontoken = 'error'
-                token.error = 'vislcg: ' + line.strip()
+                token.nontoken = "error"
+                token.error = "vislcg: " + line.strip()
         eoft = Token()
-        eoft.nontoken = 'eof'
+        eoft.nontoken = "eof"
         tokens.append(eoft)
         return tokens

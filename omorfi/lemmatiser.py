@@ -33,9 +33,11 @@ class Lemmatiser:
         self.try_detitlecase = True
 
     def use_analyser(self, analyser: Analyser):
+        """Set analyser to use for lemmatising."""
         self.analyser = analyser
 
     def load_lemmatiser(self, hfstfile: str):
+        """Load FSA for lemmatising."""
         self.lemmatiser = load_hfst(hfstfile)
 
     def _lemmatise(self, token):
@@ -43,13 +45,13 @@ class Lemmatiser:
             res = self.lemmatiser.lookup(token.surf)
         else:
             res = self.analyser.analyse(token)
-        newlemmas = list()
+        newlemmas = []
         for r in res:
             lemma = r[0]
             weight = float(r[1])
             anal = Analysis()
             anal.raw = lemma
-            anal.rawtype = 'lemma'
+            anal.rawtype = "lemma"
             anal.weight = weight
             newlemmas.append(anal)
         for lemma in newlemmas:
@@ -57,16 +59,17 @@ class Lemmatiser:
         return newlemmas
 
     def lemmatise(self, token: Token):
+        """Lemmatise a token."""
         lemmas = None
         lemmas = self._lemmatise(token)
         if not lemmas or len(lemmas) < 1:
             lemma = token.surf
-            weight = float('inf')
+            weight = float("inf")
             guess = Analysis()
             guess.raw = lemma
-            guess.rawtype = 'lemma'
-            guess.ewight = weight
-            guess.manglers.append('GUESSER=SURFISLEMMA')
+            guess.rawtype = "lemma"
+            guess.weight = weight
+            guess.manglers.append("GUESSER=SURFISLEMMA")
             token.lemmatisations.append(guess)
             lemmas = [guess]
         return lemmas

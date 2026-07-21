@@ -21,10 +21,10 @@
 # utils to format apertium style data from omorfi database values
 
 from ..error_logging import fail_formatting_missing_for
+from ..settings import OPTIONAL_HYPHEN, WORD_BOUNDARY
+from ..string_manglers import lexc_escape
 from .formatter import Formatter
 from .no_tags_formatter import NoTagsFormatter
-from ..settings import optional_hyphen, word_boundary
-from ..string_manglers import lexc_escape
 
 
 class LabeledSegmentsFormatter(Formatter):
@@ -34,80 +34,80 @@ class LabeledSegmentsFormatter(Formatter):
 
     ## labels for segments
     multichars = {
-        '[ADJ]',
-        '[VERB]',
-        '[NOUN]',
-        '[PART]',
-        '[PRON]',
-        '[NUM]',
-        '[PROPN]',
-        '[INTJ]',
-        '[CCONJ]',
-        '[SCONJ]',
-        '[ADV]',
-        '[ADP]',
-        '[POST]',
-        '[PREP]',
-        '[PUNCT]',
-        '[NOM]',
-        '[PAR]',
-        '[GEN]',
-        '[INE]',
-        '[ELA]',
-        '[ILL]',
-        '[ADE]',
-        '[ABL]',
-        '[ALL]',
-        '[ESS]',
-        '[INS]',
-        '[ABE]',
-        '[TRA]',
-        '[COM]',
-        '[LAT]',
-        '[ACC]',
-        '[SG]',
-        '[PL]',
-        '[POSSG1]',
-        '[POSSG2]',
-        '[POSPL1]',
-        '[POSPL2]',
-        '[POSSP3]',
-        '[TRUNC]',
-        '[PRES]',
-        '[PAST]',
-        '[COND]',
-        '[POTN]',
-        '[IMPV]',
-        '[SG1]',
-        '[SG2]',
-        '[SG3]',
-        '[PL1]',
-        '[PL2]',
-        '[PL3]',
-        '[PE4]',
-        '[CONNEG]',
-        '[NEG]',
-        '[ACTV]',
-        '[PASV]',
-        '[INFA]',
-        '[INFE]',
-        '[INFMA]',
-        '[INFMAISILLA]',
-        '[PCPNUT]',
-        '[PCPVA]',
-        '[PCPMA]',
-        '[PCPMATON]',
-        '[POS]',
-        '[COMP]',
-        '[SUPER]',
-        '[hAn]',
-        '[kAAn]',
-        '[kin]',
-        '[kO]',
-        '[pA]',
-        '[s]',
-        '[kA]',
-        '[FORGN]'}
+        "[ADJ]",
+        "[VERB]",
+        "[NOUN]",
+        "[PART]",
+        "[PRON]",
+        "[NUM]",
+        "[PROPN]",
+        "[INTJ]",
+        "[CCONJ]",
+        "[SCONJ]",
+        "[ADV]",
+        "[ADP]",
+        "[POST]",
+        "[PREP]",
+        "[PUNCT]",
+        "[NOM]",
+        "[PAR]",
+        "[GEN]",
+        "[INE]",
+        "[ELA]",
+        "[ILL]",
+        "[ADE]",
+        "[ABL]",
+        "[ALL]",
+        "[ESS]",
+        "[INS]",
+        "[ABE]",
+        "[TRA]",
+        "[COM]",
+        "[LAT]",
+        "[ACC]",
+        "[SG]",
+        "[PL]",
+        "[POSSG1]",
+        "[POSSG2]",
+        "[POSPL1]",
+        "[POSPL2]",
+        "[POSSP3]",
+        "[TRUNC]",
+        "[PRES]",
+        "[PAST]",
+        "[COND]",
+        "[POTN]",
+        "[IMPV]",
+        "[SG1]",
+        "[SG2]",
+        "[SG3]",
+        "[PL1]",
+        "[PL2]",
+        "[PL3]",
+        "[PE4]",
+        "[CONNEG]",
+        "[NEG]",
+        "[ACTV]",
+        "[PASV]",
+        "[INFA]",
+        "[INFE]",
+        "[INFMA]",
+        "[INFMAISILLA]",
+        "[PCPNUT]",
+        "[PCPVA]",
+        "[PCPMA]",
+        "[PCPMATON]",
+        "[POS]",
+        "[COMP]",
+        "[SUPER]",
+        "[hAn]",
+        "[kAAn]",
+        "[kin]",
+        "[kO]",
+        "[pA]",
+        "[s]",
+        "[kA]",
+        "[FORGN]"}
 
     ## convert omorfi analyses to segment labels
     stuff2labels = {"Bc": "{wB}",
@@ -333,12 +333,12 @@ class LabeledSegmentsFormatter(Formatter):
 
         @return lexc-formatted string of labeled segments
         """
-        if stuff == '@@COPY-STEM@@':
+        if stuff == "@@COPY-STEM@@":
             # we already copy stem
-            return ''
-        elif stuff.startswith('@@LITERAL:') and stuff.endswith('@@'):
+            return ""
+        elif stuff.startswith("@@LITERAL:") and stuff.endswith("@@"):
             # we already copy stem
-            return ''
+            return ""
         elif stuff in self.stuff2labels:
             return self.stuff2labels[stuff]
         else:
@@ -351,8 +351,8 @@ class LabeledSegmentsFormatter(Formatter):
 
         @return lexc-formatted string of labeled segments
         """
-        apestring = ''
-        for i in anals.split('|'):
+        apestring = ""
+        for i in anals.split("|"):
             apestring += self.stuff2lexc(i, stem)
         return apestring
 
@@ -371,21 +371,21 @@ class LabeledSegmentsFormatter(Formatter):
 
         @return lexc-formatted lexical entry
         """
-        if wordmap['lemma'] == ' ':
-            return ''
-        wordmap['analysis'] = lexc_escape(wordmap['stub'])
-        wordmap['analysis'] += "{STUB}" + "[" + wordmap['upos'] + "]"
+        if wordmap["lemma"] == " ":
+            return ""
+        wordmap["analysis"] = lexc_escape(wordmap["stub"])
+        wordmap["analysis"] += "{STUB}" + "[" + wordmap["upos"] + "]"
         retvals = ""
-        wordmap['stub'] = wordmap['stub'].replace(
-            word_boundary, optional_hyphen)
-        wordmap['stub'] = lexc_escape(wordmap['stub'])
-        if 'BLACKLIST' in wordmap['new_para']:
-            return "! ! %s:%s\t%s\t;\n" % (wordmap['analysis'],
-                                           wordmap['stub'],
-                                           wordmap['new_para'])
+        wordmap["stub"] = wordmap["stub"].replace(
+            WORD_BOUNDARY, OPTIONAL_HYPHEN)
+        wordmap["stub"] = lexc_escape(wordmap["stub"])
+        if "BLACKLIST" in wordmap["new_para"]:
+            return "! ! %s:%s\t%s\t;\n" % (wordmap["analysis"],
+                                           wordmap["stub"],
+                                           wordmap["new_para"])
         else:
-            return "%s:%s\t%s\t;\n" % (wordmap['analysis'], wordmap['stub'],
-                                       wordmap['new_para'])
+            return "%s:%s\t%s\t;\n" % (wordmap["analysis"], wordmap["stub"],
+                                       wordmap["new_para"])
 
         return retvals
 
@@ -410,6 +410,6 @@ class LabeledSegmentsFormatter(Formatter):
 
 
 # self test
-if __name__ == '__main__':
+if __name__ == "__main__":
     formatter = NoTagsFormatter()
     exit(0)

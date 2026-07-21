@@ -30,7 +30,7 @@ from .formatter import Formatter
 
 
 class OmorFormatter(Formatter):
-    """Converts Omorfi's default formats for strings."""
+    """Converts Omorfi’s default formats for strings."""
 
     ## Omorfi multichars for all omorfi analysers
     common_multichars = {
@@ -721,7 +721,7 @@ class OmorFormatter(Formatter):
         lexc_lemma = lexc_escape(wordmap["lemma"])
         wordmap["analysis"] = f"[WORD_ID={lexc_lemma}]"
         if wordmap["homonym"][-1].isdigit() and self.homonyms:
-            wordmap["analysis"] += f"[HOMONYM={wordmap['homonym'][-1]}"
+            wordmap["analysis"] += f"[HOMONYM={wordmap["homonym"][-1]}"
         if wordmap["numtype"] and wordmap["numtype"] == "ORD":
             wordmap["analysis"] += self.stuff2lexc("ADJ")
         else:
@@ -777,14 +777,14 @@ class OmorFormatter(Formatter):
             if tag in self.ktnkav_multichars:
                 wordmap["analysis"] += tag
                 if wordmap["kotus_av"]:
-                    wordmap["analysis"] += f"[KAV={wordmap['kotus_av']}]"
+                    wordmap["analysis"] += f"[KAV={wordmap["kotus_av"]}]"
         if self.newparas:
-            wordmap["analysis"] += f"[NEWPARA={wordmap['new_para']}]"
+            wordmap["analysis"] += f"[NEWPARA={wordmap["new_para"]}]"
 
         # match WORD_ID= with epsilon, then stub and lemma might match
         lex_stub = "0" + wordmap["stub"]
 
-        lexc_line = f"{wordmap['analysis']}:{lex_stub}\t{wordmap['new_para']}\t;"
+        lexc_line = f"{wordmap["analysis"]}:{lex_stub}\t{wordmap["new_para"]}\t;"
         if "BLACKLISTED" in wordmap["new_para"]:
             return "! ! !" + lexc_line
         else:

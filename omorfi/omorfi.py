@@ -80,9 +80,9 @@ class Omorfi:
         ## UDError object :-(
         self.uderror = None
         ## database of lexical unigram probabilities
-        self.lexlogprobs = dict()
+        self.lexlogprobs = {}
         ## database of tag unigram probabilities
-        self.taglogprobs = dict()
+        self.taglogprobs = {}
         ## whether to lowercase and re-analyse if needed
         self.try_lowercase = True
         ## whether to Titlecase and re-analyse if needed
@@ -163,7 +163,7 @@ class Omorfi:
         Args:
             f: containing single hfst automaton binary.
         """
-        self.acceptor = Analyser(f)
+        self.acceptor.load_analyser(f)
         self.can_accept = True
 
     def load_tokeniser(self, f):
@@ -172,7 +172,7 @@ class Omorfi:
         Args:
             f: containing single hfst automaton binary.
         """
-        self.tokeniser = Tokeniser(f)
+        self.tokeniser.load_tokeniser(f)
         self.can_tokenise = True
 
     def load_lemmatiser(self, f):
@@ -181,7 +181,7 @@ class Omorfi:
         Args:
             f: containing single hfst automaton binary.
         """
-        self.lemmatiser = Lemmatiser(f)
+        self.lemmatiser.load_lemmatiser(f)
         self.can_lemmatise = True
 
     def load_hyphenator(self, f):
@@ -190,7 +190,7 @@ class Omorfi:
         Args:
             f: containing single hfst automaton binary.
         """
-        self.hyphenator = Hyphenator(f)
+        self.hyphenator.load_hyphenator(f)
         self.can_hyphenate = True
 
     def load_guesser(self, f):
@@ -199,7 +199,7 @@ class Omorfi:
         Args:
             f: containing single hfst automaton binary.
         """
-        self.guesser = Guesser(f)
+        self.guesser.load_guesser(f)
         self.can_guess = True
 
     def load_udpipe(self, filename: str):
@@ -225,7 +225,7 @@ class Omorfi:
         return self.tokeniser.fsa_tokenise(line)
 
     def python_tokenise(self, line: str):
-        """Tokenise with python's basic string functions.
+        """Tokenise with python’s basic string functions.
 
         Args:
             line:  string to tokenise
@@ -286,7 +286,7 @@ class Omorfi:
         return self.analyser.analyse_sentence(tokens)
 
     def guess(self, token: Token):
-        '''Speculate morphological analyses of OOV token.
+        """Speculate morphological analyses of OOV token.
 
         This method may use multiple information sources, but not the actual
         analyser. Therefore a typical use of this is after the analyse(token)
@@ -303,15 +303,15 @@ class Omorfi:
 
         Returns:
             New guesses as a list of Analysis objects.
-        '''
+        """
         return self.guesser.guess(token)
 
     def lemmatise(self, token: Token):
-        '''Lemmatise token, splitting it into valid word id's from lexical db.
+        """Lemmatise token, splitting it into valid word id’s from lexical db.
 
         Side-effect:
             This operation stores lemmas in the token for future use and only
-            returns HFST structures. Use Token's method's to retrieve tokens
+            returns HFST structures. Use Token’s methods to retrieve tokens
             in pythonic structures.
 
         Args:
@@ -319,27 +319,27 @@ class Omorfi:
 
         Returns:
             New lemmas in analysis list
-        '''
+        """
         return self.lemmatiser.lemmatise(token)
 
     def segment(self, token: Token):
-        '''Segment token into morphs, words and other string pieces.
+        """Segment token into morphs, words and other string pieces.
 
         Side-effect:
             this operation stores segments in the token for future
         use and only returns the HFST structures. To get pythonic data use
-        Token's methods afterwards.
+        Token’s methods afterwards.
 
         Args:
             token: token to segment
 
         Returns:
             New segmentations in analysis list
-        '''
+        """
         return self.segmenter.segment(token)
 
     def labelsegment(self, token: Token):
-        '''Segment token into labelled morphs, words and other string pieces.
+        """Segment token into labelled morphs, words and other string pieces.
 
         The segments are suffixed with their morphologically relevant
         informations, e.g. lexical classes for root lexemes and inflectional
@@ -349,27 +349,27 @@ class Omorfi:
         Side-effect:
             Note that this operation stores the labelsegments in the token for
         future use, and only returns raw HFST structures. To get pythonic
-        you can use Token's methods afterwards.
+        you can use Token’s methods afterwards.
 
         Args:
             token: token to segment with labels
 
         Returns:
             New labeled segemntations in analysis list.
-        '''
+        """
         return self.labelsegmenter.labelsegment(token)
 
     def accept(self, token: Token):
-        '''Check if the token is in the dictionary or not.
+        """Check if the token is in the dictionary or not.
 
         Returns:
             False for OOVs, True otherwise. Note, that this is not
         necessarily more efficient than bool(analyse(token))
-        '''
+        """
         return self.analyser.accept(token)
 
     def generate(self, omorstring: str):
-        '''Generate surface forms corresponding given token description.
+        """Generate surface forms corresponding given token description.
 
         Currently only supports very direct omor style analysis string
         generation.
@@ -380,11 +380,11 @@ class Omorfi:
         Returns
             A surface string word-form, or the omorstring argument if
             generation fails. Or None if generator is not loaded.
-        '''
+        """
         return self.generator.generate(omorstring)
 
     def tokenise_sentence(self, sentence: str):
-        '''tokenise a sentence.
+        """tokenise a sentence.
 
         To be used when text is already sentence-splitted. If the
         text is plain text with sentence boundaries within lines,
@@ -395,22 +395,22 @@ class Omorfi:
 
         Returns:
             list of tokens in sentence
-        '''
+        """
         return self.tokeniser.tokenise_sentence(sentence)
 
     def tokenise_plaintext(self, f):
-        '''tokenise a whole text.
+        """tokenise a whole text.
 
         Args:
             f: filelike object with iterable strings
 
         Returns:
             list of tokens
-        '''
+        """
         return self.tokeniser.tokenise_plaintext(f)
 
     def tokenise_conllu(self, f):
-        '''tokenise a conllu sentence or comment.
+        """tokenise a conllu sentence or comment.
 
         Should be used a file-like iterable that has CONLL-U sentence or
         comment or empty block coming up.
@@ -420,11 +420,11 @@ class Omorfi:
 
         Returns:
             list of tokens
-        '''
+        """
         return self.tokenise_conllu(f)
 
     def tokenise_vislcg(self, f):
-        '''Tokenises a sentence from VISL-CG format data.
+        """Tokenises a sentence from VISL-CG format data.
 
         Returns a list of tokens when it hits first non-token block, including
         a token representing this non-token block.
@@ -434,29 +434,29 @@ class Omorfi:
 
         Returns:
             list of tokens
-        '''
+        """
         return self.tokeniser.tokenise_vislcg(f)
 
 
 def main():
     """Invoke a simple CLI analyser."""
     a = ArgumentParser()
-    a.add_argument('-f', '--fsa', metavar='FSA', required=True,
-                   help='Path to FSA analyser')
-    a.add_argument('-i', '--input', metavar='INFILE', type=open,
-                   dest='infile', help='source of analysis data')
-    a.add_argument('-v', '--verbose', action='store_true',
-                   help='print verbosely while processing')
+    a.add_argument("-f", "--fsa", metavar="FSA", required=True,
+                   help="Path to FSA analyser")
+    a.add_argument("-i", "--input", metavar="INFILE", type=open,
+                   dest="infile", help="source of analysis data")
+    a.add_argument("-v", "--verbose", action="store_true",
+                   help="print verbosely while processing")
     options = a.parse_args()
     omorfi = Omorfi(options.verbose)
     omorfi.load_analyser(options.fsa)
     if not options.infile:
         options.infile = sys.stdin
     if options.verbose:
-        print('reading from', options.infile.name)
+        print("reading from", options.infile.name)
     for line in options.infile:
         line = line.strip()
-        if not line or line == '':
+        if not line or line == "":
             continue
         surfs = omorfi.tokenise(line)
         for surf in surfs:
@@ -467,5 +467,5 @@ def main():
     sys.exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

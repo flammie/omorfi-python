@@ -31,12 +31,12 @@ class Hyphenator:
         self.hyphenator = load_hfst(hfstfile)
 
     def _hyphenate(self, token: Token):
-        '''Intenal hyphenateing using HFST automaton.
+        """Intenal hyphenateing using HFST automaton.
 
         Args:
-            token: token to hyphenate.'''
+            token: token to hyphenate."""
         res = self.hyphenator.lookup(token.surf)
-        newsegs = list()
+        newsegs = []
         for r in res:
             hyphens = r[0]
             weight = float(r[1])
@@ -50,19 +50,19 @@ class Hyphenator:
         return newsegs
 
     def hyphenate(self, token: Token):
-        '''Segment token into morphs, words and other string pieces.
+        """Segment token into morphs, words and other string pieces.
 
         Side-effect:
             this operation stores hyphenates in the token for future
         use and only returns the HFST structures. To get pythonic data use
-        Token's methods afterwards.
+        Token’s methods afterwards.
 
         Args:
             token: token to hyphenate
 
         Returns:
             New hyphenateations in analysis list
-        '''
+        """
         hyphens = None
         hyphens = self._hyphenate(token)
         if not hyphens or len(hyphens) < 1:

@@ -22,7 +22,7 @@
 import sys
 
 from ..error_logging import fail_formatting_missing_for, just_fail
-from ..settings import weak_boundary, word_boundary
+from ..settings import WEAK_BOUNDARY, WORD_BOUNDARY
 from ..string_manglers import lexc_escape
 from .formatter import Formatter
 
@@ -400,8 +400,8 @@ class ApertiumFormatter(Formatter):
 
         @param verbose  set to false to disable stdout logging
         """
-        ## verbosity, i.e. print while translating
         super().__init__(verbose)
+        ## verbosity, i.e. print while translating
         self.verbose = verbose
         for _, ape in self.stuff2apertium.items():
             if len(ape) < 2:
@@ -472,7 +472,7 @@ class ApertiumFormatter(Formatter):
             return ""
         wordmap["analysis"] = lexc_escape(wordmap["lemma"])
         wordmap["analysis"] = wordmap["analysis"].replace(
-            word_boundary, "+").replace(weak_boundary, "")
+            WORD_BOUNDARY, "+").replace(WEAK_BOUNDARY, "")
         if wordmap["is_prefix"]:
             wordmap["analysis"] += "+"
         elif wordmap["upos"] == "PROPN":
@@ -546,11 +546,11 @@ class ApertiumFormatter(Formatter):
         wordmap["stub"] = wordmap["stub"]
         wordmap["stub"] = lexc_escape(wordmap["stub"])
         if "BLACKLIST" in wordmap["new_para"]:
-            return f"!{wordmap['analysis']}:{wordmap['stub']}" + \
-                   f"\t{wordmap['new_para']}\t;"
+            return f"!{wordmap["analysis"]}:{wordmap["stub"]}" + \
+                   f"\t{wordmap["new_para"]}\t;"
         else:
-            return f"{wordmap['analysis']}:{wordmap['stub']}" + \
-                   f"\t{wordmap['new_para']}\t;"
+            return f"{wordmap["analysis"]}:{wordmap["stub"]}" + \
+                   f"\t{wordmap["new_para"]}\t;"
 
     def multichars_lexc(self):
         """Get apertium compatible lexc multichars.

@@ -31,13 +31,13 @@ class LabelSegmenter:
         self.labelsegmenter = load_hfst(hfstfile)
 
     def _labelsegment(self, token: Token):
-        '''Internal implementation of segment label lookup with FSA.
+        """Internal implementation of segment label lookup with FSA.
 
         Args:
             token: token to analyse
 
         Returns:
-            list of new labelsegment analyses.'''
+            list of new labelsegment analyses."""
         res = self.labelsegmenter.lookup(token.surf)
         newlabels = list()
         for r in res:
@@ -53,7 +53,7 @@ class LabelSegmenter:
         return newlabels
 
     def labelsegment(self, token: Token):
-        '''Segment token into labelled morphs, words and other string pieces.
+        """Segment token into labelled morphs, words and other string pieces.
 
         The segments are suffixed with their morphologically relevant
         informations, e.g. lexical classes for root lexemes and inflectional
@@ -63,14 +63,14 @@ class LabelSegmenter:
         Side-effect:
             Note that this operation stores the labelsegments in the token for
         future use, and only returns raw HFST structures. To get pythonic
-        you can use Token's methods afterwards.
+        you can use Token’s methods afterwards.
 
         Args:
             token: token to segment with labels
 
         Returns:
             New labeled segemntations in analysis list.
-        '''
+        """
         labelsegments = None
         labelsegments = self._labelsegment(token)
         if not labelsegments or len(labelsegments) < 1:

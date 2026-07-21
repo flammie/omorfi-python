@@ -23,69 +23,69 @@ and alphabet pairs as well as internal keywords.
 
 
 # common symbols for all
-version_id_easter_egg = 'OMORFI_VERSION_≥_15_©_GNU_GPL_V3'
-word_boundary = "{WB}"
-newword_boundary = "{wB}"
-weak_boundary = "{XB}"
-deriv_boundary = "{DB}"
-morph_boundary = "{MB}"
-stub_boundary = "{STUB}"
-optional_hyphen = "{hyph?}"
-common_multichars = {
-    version_id_easter_egg,
-    word_boundary,
-    newword_boundary,
-    weak_boundary,
-    deriv_boundary,
-    morph_boundary,
-    stub_boundary,
-    optional_hyphen
+VERSION_ID_EASTER_EGG = "OMORFI_VERSION_≥_15_©_GNU_GPL_V3"
+WORD_BOUNDARY = "{WB}"
+NEWWORD_BOUNDARY = "{wB}"
+WEAK_BOUNDARY = "{XB}"
+DERIV_BOUNDARY = "{DB}"
+MORPH_BOUNDARY = "{MB}"
+STUB_BOUNDARY = "{STUB}"
+OPTIONAL_HYPHEN = "{hyph?}"
+COMMON_MULTICHARS = {
+    VERSION_ID_EASTER_EGG,
+    WORD_BOUNDARY,
+    NEWWORD_BOUNDARY,
+    WEAK_BOUNDARY,
+    DERIV_BOUNDARY,
+    MORPH_BOUNDARY,
+    STUB_BOUNDARY,
+    OPTIONAL_HYPHEN
 }
 # some duplicates for symmetry:
-fin_lowercase = "abcdefghijklmnopqrsštuvwxyzžåäö" + \
+FIN_LOWERCASE = "abcdefghijklmnopqrsštuvwxyzžåäö" + \
     "áàâãāăąçćĉċčđðďéèêëēĕęėěƒĝğġģȟħíìîïĩīĭįıĳĵķĸĺļľŀłñńņňŋ" + \
     "óòôōŏŕŗřśŝşſţťŧßþúùûüũūŭůųŵýŷÿűźżʒæøœőə"
-fin_uppercase = "ABCDEFGHIJKLMNOPQRSŠTUVWXYZŽÅÄÖ" \
+FIN_UPPERCASE = "ABCDEFGHIJKLMNOPQRSŠTUVWXYZŽÅÄÖ" \
     "ÁÀÂÃĀĂĄÇĆĈĊČÐÐĎÉÈÊËĒĔĘĖĚƑĜĞĠĢȞĦÍÌÎÏĨĪĬĮİĲĴĶĸĹĻĽĿŁÑŃŅŇŊ" + \
     "ÓÒÔŌŎŔŖŘŚŜŞSŢŤŦßÞÚÙÛÜŨŪŬŮŲŴÝŶŸŰŹŻƷÆØŒŐƏ"
 # asymmetric sets:
-fin_lower_vowels = "aeiouyåäö" + \
+FIN_LOWER_VOWELS = "aeiouyåäö" + \
     "áàâãāăąéèêëēĕęėěíìîïĩīĭįıóòôōŏúùûüũūŭůųýŷÿűæøœőə"
-fin_upper_vowels = "AEIOUYÅÄÖ" \
+FIN_UPPER_VOWELS = "AEIOUYÅÄÖ" \
     "ÁÀÂÃĀĂĄÉÈÊËĒĔĘĖĚÍÌÎÏĨĪĬĮİÓÒÔŌŎÚÙÛÜŨŪŬŮŲÝŶŰÆØŒŐƏ"
-fin_vowels = fin_lower_vowels + fin_upper_vowels
-fin_lower_consonants = "bcdfghjklmnpqrsštvwxzž" + \
+FIN_VOWELS = FIN_LOWER_VOWELS + FIN_UPPER_VOWELS
+FIN_LOWER_CONSONANTS = "bcdfghjklmnpqrsštvwxzž" + \
     "çćĉċčđðďƒĝğġģȟħĵķĸĺļľŀłñńņňŉŋŕŗřśŝşſţťŧßþŵźżʒ"
-fin_upper_consonants = "BCDFGHJKLMNPQRSŠTVWXZŽ" \
+FIN_UPPER_CONSONANTS = "BCDFGHJKLMNPQRSŠTVWXZŽ" \
     "ÇĆĈĊČÐĎĜĞĠĢȞĦĴĶĹĻĽĿŁÑŃŅŇŊŔŖŘŚŜŞŢŤŦÞŴŹŻƷ"
-fin_consonants = fin_lower_consonants + fin_upper_consonants
+FIN_CONSONANTS = FIN_LOWER_CONSONANTS + FIN_UPPER_CONSONANTS
 # the words containing symbols are likely weird / props etc.
-fin_symbols = "1234567890§!\"#¤%&/()=?½@£$‚{[]}<>*"
+FIN_SYMBOLS = "1234567890§!\"#¤%&/()=?½@£$‚{[]}<>*"
 # punctuation characters one may optionally split without space after the word
-fin_punct_trailing = "\"'.,?!)]}’”–:;»>"
+FIN_PUNCT_TRAILING = "\"'.,?!)]}’”–:;»>"
 # punctuations chopped of at the beginning of the word
-fin_punct_leading = "\"'<([{’”-–»>"
+FIN_PUNCT_LEADING = "\"'<([{’”-–»>"
 # known variants and old orthographies 1:1
 # (a conservative listing for sure)
-fin_orth_pairs = [("’", "'"), ("’", "´"), ("’", "′"), ("-", "‐"),
+FIN_ORTH_PAIRS = [("’", "'"), ("’", "´"), ("’", "′"), ("-", "‐"),
                   ("-", "‑"), ("-", "‑")]
 # weights by rules
-stuff_weights = {'Bc': '+1.0',
-                 'Duus': '+16.0', 'Dttaa': '+16.0',
-                 'Dtattaa': '+16.0', 'Dtatuttaa': '+32.0', 'Dinen': '+1.0',
-                 'Dja': '+2.0', 'Du': '+16.0',
-                 'Uarch': '+16.0',
-                 'Udial': '+2.0', 'Urare': '+4.0', 'Unonstd': '+4.0',
-                 'Xabe': '+0.1', 'Xcom': '+1.0', 'Xins': '+2.0',
-                 'Qhan': '+1.0', 'Qpa': '+1.0', 'Qkin': '+1.0',
-                 'Qkaan': '+1.0'
+STUFF_WEIGHTS = {"Bc": "+1.0",
+                 "Duus": "+16.0", "Dttaa": "+16.0",
+                 "Dtattaa": "+16.0", "Dtatuttaa": "+32.0", "Dinen": "+1.0",
+                 "Dja": "+2.0", "Du": "+16.0",
+                 "Uarch": "+16.0",
+                 "Udial": "+2.0", "Urare": "+4.0", "Unonstd": "+4.0",
+                 "Xabe": "+0.1", "Xcom": "+1.0", "Xins": "+2.0",
+                 "Qhan": "+1.0", "Qpa": "+1.0", "Qkin": "+1.0",
+                 "Qkaan": "+1.0"
                  }
-boundary_weights = {word_boundary: '+0.1', morph_boundary: '+0.1',
-                    newword_boundary: '+1.0', deriv_boundary: '+2.0',
-                    weak_boundary: '+0.1', stub_boundary: '+0.1'}
+BOUNDARY_WEIGHTS = {WORD_BOUNDARY: "+0.1", MORPH_BOUNDARY: "+0.1",
+                    NEWWORD_BOUNDARY: "+1.0", DERIV_BOUNDARY: "+2.0",
+                    WEAK_BOUNDARY: "+0.1", STUB_BOUNDARY: "+0.1"}
 
 # stuff is the tag format in database or lexical data, a lot of things
-stuffs = {
+STUFFS = {
     "",
     "ABBREVIATION",
     "ACRONYM",

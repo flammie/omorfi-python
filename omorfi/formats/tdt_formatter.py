@@ -8,78 +8,78 @@ from .lexc_formatter import lexc_escape
 from .omor_formatter import OmorFormatter
 
 tdt_multichars = {
-    '% A',
-    '% Adp',
-    '% Adv',
-    '% C',
-    '% Foreign',
-    '% Interj',
-    '% N',
-    '% Num',
-    '% Pron',
-    '% Punct',
-    '% Symb',
-    '% V',
-    '% SUBCAT_QUALIFIER', 'SUBCAT_INTERJECTION',
-    '% SUBCAT_Dem', 'SUBCAT_PERSONAL', 'SUBCAT_INTERROG',
-    '% SUBCAT_RELATIVE', 'SUBCAT_QUANTOR', 'SUBCAT_REFLEXIVE',
-    '% SUBCAT_RECIPROC', 'SUBCAT_Indef',
-    '% SUBCAT_INTERROGATIVE',
-    '% SUBCAT_CARD', 'SUBCAT_ORD',
-    '% SUBCAT_CONJUNCTION', '[CONJ_COORD', '[CONJ_ADVERBIAL',
-    '[CONJ_COMPARATIVE', '% SUBCAT_POSTPOSITION', 'SUBCAT_PREPOSITION',
-    '% SUBCAT_PREFIX', 'SUBCAT_SUFFIX', 'SUBCAT_ABBREVIATION',
-    '% SUBCAT_ACRONYM',
-    '[POS_PUNCTUATION', '[POS_SYMBOL',
-    '% SUBCAT_SPACE', 'SUBCAT_QUOTATION', 'SUBCAT_BRACKET',
-    '% SUBCAT_DASH', 'SUBCAT_CURRENCY', 'SUBCAT_MATH',
-    '% SUBCAT_OPERATION', 'SUBCAT_RELATION', 'SUBCAT_INITIAL',
-    '% SUBCAT_FINAL', 'SUBCAT_REFLEXIVE', 'SUBCAT_DIGIT',
-    '% SUBCAT_ROMAN', 'SUBCAT_DECIMAL',
-    '|CASE_Nom', '|CASE_Par', '|CASE_Gen', '|CASE_Ine', '|CASE_Ela',
-    '|CASE_Ill', '|CASE_Ade', '|CASE_Abl', '|CASE_All', '|CASE_Ess',
-    '|CASE_Ins', '|CASE_Abe', '|CASE_Tra', '|CASE_Com', '|CASE_Lat',
-    '|CASE_Acc', '|NUM_Sg', '|NUM_Pl', '[POSS_SG1', '[POSS_SG2',
-    '[POSS_SG3', '[POSS_PL1', '[POSS_PL2', '[POSS_PL3',
-    '[POSS_3',
-    '[BOUNDARY_COMPOUND', '[COMPOUND_FORM_S', '[COMPOUND_FORM_OMIT',
-    '[TENSE_PRESENT',
-    '[TENSE_PAST', '[MOOD_INDV', '[MOOD_COND', '[MOOD_POTN',
-    '[MOOD_IMPV', '[MOOD_OPT', '[MOOD_EVNV',
-    '[MOOD_INDV][TENSE_PAST',
-    '[PERS_SG1', '[PERS_SG2', '[PERS_SG3',
-    '[PERS_PL1', '[PERS_PL2', '[PERS_PL3', '[PERS_PE4',
-    '[NEG_CON', '% SUBCAT_NEG', '[VOICE_ACT', '[VOICE_PSS',
-    '[INF_A', '[INF_E', '[INF_MA', '[INF_MINEN', '[INF_MAISILLA',
-    '|DRV_Der_MINEN', '|DRV_Der_MAISILLA',
-    '[PCP_NUT', '[PCP_AGENT', '[PCP_VA', '[PCP_NEG',
-    '|DRV_Der_NUT', '|DRV_Der_TU', '|DRV_Der_MA', '|DRV_Der_VA', '|DRV_Der_MATON',
-    '[CMP_POS', '[CMP_CMP', '[CMP_SUP',
-    '|DRV_Der_MPI', '|DRV_Der_IN',
-    '|CLIT_Foc_han', '|CLIT_Foc_kaan', '|CLIT_Foc_kin', '|CLIT_Foc_Qst',
-    '|CLIT_Foc_pa', '|CLIT_Foc_s', '|CLIT_Foc_ka',
-    '|DRV_Der_STI', '|DRV_Der_JA',
-    '|DRV_Der_INEN', '|DRV_Der_LAINEN', '|DRV_Der_TAR', '|DRV_Der_LLINEN', '|DRV_Der_TON',
-    '|DRV_Der_TSE', '|DRV_Der_OI', '|DRV_Der_VS', '|DRV_Der_U', '|DRV_Der_TTAIN',
-    '|DRV_Der_TTAA', '|DRV_Der_TATTAA', '|DRV_Der_TATUTTAA', '|DRV_Der_UUS',
-    '|DRV_Der_S', '|DRV_Der_STI', '|DRV_Der_NUT', '|DRV_Der_TAVA',
-    '[STYLE_NONSTANDARD', '[STYLE_RARE', '[STYLE_DIALECTAL',
-    '[STYLE_ARCHAIC',
-    '[GUESS_COMPOUND', '[GUESS_DERIVE', '[ALLO_A',
-    '[ALLO_TA', '[ALLO_HVN', '[ALLO_IA', '[ALLO_IDEN', '[ALLO_ITA',
-    '[ALLO_ITTEN', '[ALLO_IEN', '[ALLO_IHIN', '[ALLO_IIN', '[ALLO_IN',
-    '[ALLO_ISIIN', '[ALLO_IDEN', '[ALLO_JA', '[ALLO_JEN', '[ALLO_SEEN',
-    '[ALLO_TEN', '[ALLO_VN', '[FILTER_NO_PROC',
-    '[PROPER_FIRST', '[PROPER_GEO', '[PROPER_LAST',
-    '[PROPER_MISC', '[PROPER_ORG', '[PROPER_PRODUCT', '[PROPER_EVENT',
-    '[PROPER_MEDIA', '[PROPER_CULTGRP', '[PROPER_ARTWORK', '[SEM_TITLE',
-    '[SEM_ORG', '[SEM_EVENT', '[SEM_POLIT', '[SEM_MEDIA', '[SEM_GEO',
-    '[SEM_COUNTRY', '[SEM_INHABITANT', '[SEM_LANGUAGE',
-    '[SEM_MEASURE', '[SEM_CURRENCY', '[SEM_TIME', '[SEM_MALE', '[SEM_FEMALE',
-    '[POSITION_PREFIX', '[POSITION_SUFFIX',
-    '[POS_NOUN]% SUBCAT_ABBREVIATION',
-    '[MOOD_INDV][TENSE_PRESENT',
-    '[MOOD_INDV][TENSE_PAST'
+    "% A",
+    "% Adp",
+    "% Adv",
+    "% C",
+    "% Foreign",
+    "% Interj",
+    "% N",
+    "% Num",
+    "% Pron",
+    "% Punct",
+    "% Symb",
+    "% V",
+    "% SUBCAT_QUALIFIER", "SUBCAT_INTERJECTION",
+    "% SUBCAT_Dem", "SUBCAT_PERSONAL", "SUBCAT_INTERROG",
+    "% SUBCAT_RELATIVE", "SUBCAT_QUANTOR",
+    "% SUBCAT_RECIPROC", "SUBCAT_Indef",
+    "% SUBCAT_INTERROGATIVE",
+    "% SUBCAT_CARD", "SUBCAT_ORD",
+    "% SUBCAT_CONJUNCTION", "[CONJ_COORD", "[CONJ_ADVERBIAL",
+    "[CONJ_COMPARATIVE", "% SUBCAT_POSTPOSITION", "SUBCAT_PREPOSITION",
+    "% SUBCAT_PREFIX", "SUBCAT_SUFFIX", "SUBCAT_ABBREVIATION",
+    "% SUBCAT_ACRONYM",
+    "[POS_PUNCTUATION", "[POS_SYMBOL",
+    "% SUBCAT_SPACE", "SUBCAT_QUOTATION", "SUBCAT_BRACKET",
+    "% SUBCAT_DASH", "SUBCAT_CURRENCY", "SUBCAT_MATH",
+    "% SUBCAT_OPERATION", "SUBCAT_RELATION", "SUBCAT_INITIAL",
+    "% SUBCAT_FINAL", "SUBCAT_REFLEXIVE", "SUBCAT_DIGIT",
+    "% SUBCAT_ROMAN", "SUBCAT_DECIMAL",
+    "|CASE_Nom", "|CASE_Par", "|CASE_Gen", "|CASE_Ine", "|CASE_Ela",
+    "|CASE_Ill", "|CASE_Ade", "|CASE_Abl", "|CASE_All", "|CASE_Ess",
+    "|CASE_Ins", "|CASE_Abe", "|CASE_Tra", "|CASE_Com", "|CASE_Lat",
+    "|CASE_Acc", "|NUM_Sg", "|NUM_Pl", "[POSS_SG1", "[POSS_SG2",
+    "[POSS_SG3", "[POSS_PL1", "[POSS_PL2", "[POSS_PL3",
+    "[POSS_3",
+    "[BOUNDARY_COMPOUND", "[COMPOUND_FORM_S", "[COMPOUND_FORM_OMIT",
+    "[TENSE_PRESENT",
+    "[TENSE_PAST", "[MOOD_INDV", "[MOOD_COND", "[MOOD_POTN",
+    "[MOOD_IMPV", "[MOOD_OPT", "[MOOD_EVNV",
+    "[MOOD_INDV][TENSE_PAST",
+    "[PERS_SG1", "[PERS_SG2", "[PERS_SG3",
+    "[PERS_PL1", "[PERS_PL2", "[PERS_PL3", "[PERS_PE4",
+    "[NEG_CON", "% SUBCAT_NEG", "[VOICE_ACT", "[VOICE_PSS",
+    "[INF_A", "[INF_E", "[INF_MA", "[INF_MINEN", "[INF_MAISILLA",
+    "|DRV_Der_MINEN", "|DRV_Der_MAISILLA",
+    "[PCP_NUT", "[PCP_AGENT", "[PCP_VA", "[PCP_NEG",
+    "|DRV_Der_NUT", "|DRV_Der_TU", "|DRV_Der_MA", "|DRV_Der_VA", "|DRV_Der_MATON",
+    "[CMP_POS", "[CMP_CMP", "[CMP_SUP",
+    "|DRV_Der_MPI", "|DRV_Der_IN",
+    "|CLIT_Foc_han", "|CLIT_Foc_kaan", "|CLIT_Foc_kin", "|CLIT_Foc_Qst",
+    "|CLIT_Foc_pa", "|CLIT_Foc_s", "|CLIT_Foc_ka",
+    "|DRV_Der_STI", "|DRV_Der_JA",
+    "|DRV_Der_INEN", "|DRV_Der_LAINEN", "|DRV_Der_TAR", "|DRV_Der_LLINEN", "|DRV_Der_TON",
+    "|DRV_Der_TSE", "|DRV_Der_OI", "|DRV_Der_VS", "|DRV_Der_U", "|DRV_Der_TTAIN",
+    "|DRV_Der_TTAA", "|DRV_Der_TATTAA", "|DRV_Der_TATUTTAA", "|DRV_Der_UUS",
+    "|DRV_Der_S", "|DRV_Der_TAVA",
+    "[STYLE_NONSTANDARD", "[STYLE_RARE", "[STYLE_DIALECTAL",
+    "[STYLE_ARCHAIC",
+    "[GUESS_COMPOUND", "[GUESS_DERIVE", "[ALLO_A",
+    "[ALLO_TA", "[ALLO_HVN", "[ALLO_IA", "[ALLO_IDEN", "[ALLO_ITA",
+    "[ALLO_ITTEN", "[ALLO_IEN", "[ALLO_IHIN", "[ALLO_IIN", "[ALLO_IN",
+    "[ALLO_ISIIN", "[ALLO_JA", "[ALLO_JEN", "[ALLO_SEEN",
+    "[ALLO_TEN", "[ALLO_VN", "[FILTER_NO_PROC",
+    "[PROPER_FIRST", "[PROPER_GEO", "[PROPER_LAST",
+    "[PROPER_MISC", "[PROPER_ORG", "[PROPER_PRODUCT", "[PROPER_EVENT",
+    "[PROPER_MEDIA", "[PROPER_CULTGRP", "[PROPER_ARTWORK", "[SEM_TITLE",
+    "[SEM_ORG", "[SEM_EVENT", "[SEM_POLIT", "[SEM_MEDIA", "[SEM_GEO",
+    "[SEM_COUNTRY", "[SEM_INHABITANT", "[SEM_LANGUAGE",
+    "[SEM_MEASURE", "[SEM_CURRENCY", "[SEM_TIME", "[SEM_MALE", "[SEM_FEMALE",
+    "[POSITION_PREFIX", "[POSITION_SUFFIX",
+    "[POS_NOUN]% SUBCAT_ABBREVIATION",
+    "[MOOD_INDV][TENSE_PRESENT",
+    "[MOOD_INDV][TENSE_PAST"
     "% SUBCAT_DASH]", "SUBCAT_SPACE]",
     "[BOUNDARY_CLAUSE]", "[BOUNDARY_SENTENCE]",
     "% SUBCAT_QUOTATION][POSITION_INITIAL]",
@@ -236,7 +236,7 @@ stuff2tdt = {
 
 
 def format_tag_tdt(stuff, format):
-    if stuff == '0':
+    if stuff == "0":
         return "0"
     if stuff in stuff2tdt:
         return stuff2tdt[stuff]
@@ -246,40 +246,40 @@ def format_tag_tdt(stuff, format):
 
 
 def format_analysis_lexc_tdt(anals, format):
-    tdtstring = ''
-    for tag in anals.split('|'):
+    tdtstring = ""
+    for tag in anals.split("|"):
         tdtstring += format_tag_tdt(tag, format)
     return tdtstring
 
 
 def format_continuation_lexc_tdt(anals, surf, cont, format):
-    tdtstring = ''
-    if 'DIGITS_' in cont and not ('BACK' in cont or 'FRONT' in cont):
+    tdtstring = ""
+    if "DIGITS_" in cont and not ("BACK" in cont or "FRONT" in cont):
         tdtstring = lexc_escape(surf)
-        if anals and anals != 'LEMMA-START':
-            tdtstring += ']'
+        if anals and anals != "LEMMA-START":
+            tdtstring += "]"
 
     # Collapse DRV_Der=NUT/TU and PCP=NUT to PCP=NUT with full inflection
-    if anals == 'Dnut':
-        anals = 'Vact|Cnut'
-    elif anals == 'Dtu':
-        anals = 'Vpss|Cnut'
+    if anals == "Dnut":
+        anals = "Vact|Cnut"
+    elif anals == "Dtu":
+        anals = "Vpss|Cnut"
     # Collapse DRV_Der=VA/TAVA and PCP=VA to PCP=VA with full inflection
-    elif anals == 'Dva':
-        anals = 'Vact|Cva'
-    elif anals == 'Dtava':
-        anals = 'Vpss|Cva'
+    elif anals == "Dva":
+        anals = "Vact|Cva"
+    elif anals == "Dtava":
+        anals = "Vpss|Cva"
     # Collapse DRV_Der=MA and PCP=AGENT to PCP=AGENT with full inflection
-    elif anals == 'Dma':
-        anals = 'Cma'
+    elif anals == "Dma":
+        anals = "Cma"
     # Collapse DRV_Der=MATON and PCP=NEG to PCP=NEG with full inflection
-    elif anals == 'Dmaton':
-        anals = 'Cmaton'
-    elif ('Cnut' in anals or 'Cva' in anals or 'Cma' in anals or 'Cmaton' in anals) and \
-         (anals.endswith('Npl') or anals.endswith('Nsg')):
-        anals = anals + '|Xnom'
+    elif anals == "Dmaton":
+        anals = "Cmaton"
+    elif ("Cnut" in anals or "Cva" in anals or "Cma" in anals or "Cmaton" in anals) and \
+         (anals.endswith("Npl") or anals.endswith("Nsg")):
+        anals = anals + "|Xnom"
 
-    tags = anals.split('|')
+    tags = anals.split("|")
     for tag in tags:
         tdtstring += format_tag_tdt(tag, format)
     surf = lexc_escape(surf)
@@ -287,74 +287,74 @@ def format_continuation_lexc_tdt(anals, surf, cont, format):
 
 
 def format_lexc_tdt(wordmap, format):
-    '''
+    """
     format string for canonical tdt format for morphological analysis
-    '''
-    if wordmap['stub'] == ' ':
+    """
+    if wordmap["stub"] == " ":
         # do not include normal white space for now
         return ""
-    wordmap['stub'] = lexc_escape(wordmap['stub'])
-    wordmap['analysis'] = "[WORD_ID=%s]" % (lexc_escape(wordmap['lemma']))
-    wordmap['particle'] = wordmap['particle'].replace('QUALIFIER', 'ADJECTIVE')
-    if wordmap['pos'] != 'PARTICLE' or not wordmap['particle'].startswith('AD'):
-        wordmap['analysis'] += format_tag_tdt(wordmap['pos'], format)
-    if wordmap['is_suffix']:
-        wordmap['analysis'] += format_tag_tdt('SUFFIX', format)
-    if wordmap['is_prefix']:
-        wordmap['analysis'] += format_tag_tdt('PREFIX', format)
-        if wordmap['pos'] == 'ADJECTIVE':
-            wordmap['analysis'] += format_tag_tdt('Cpos', format)
+    wordmap["stub"] = lexc_escape(wordmap["stub"])
+    wordmap["analysis"] = "[WORD_ID=%s]" % (lexc_escape(wordmap["lemma"]))
+    wordmap["particle"] = wordmap["particle"].replace("QUALIFIER", "ADJECTIVE")
+    if wordmap["pos"] != "PARTICLE" or not wordmap["particle"].startswith("AD"):
+        wordmap["analysis"] += format_tag_tdt(wordmap["pos"], format)
+    if wordmap["is_suffix"]:
+        wordmap["analysis"] += format_tag_tdt("SUFFIX", format)
+    if wordmap["is_prefix"]:
+        wordmap["analysis"] += format_tag_tdt("PREFIX", format)
+        if wordmap["pos"] == "ADJECTIVE":
+            wordmap["analysis"] += format_tag_tdt("Cpos", format)
 
-    if wordmap['particle']:
-        for pclass in wordmap['particle'].split('|'):
-            wordmap['analysis'] += format_tag_tdt(pclass, format)
+    if wordmap["particle"]:
+        for pclass in wordmap["particle"].split("|"):
+            wordmap["analysis"] += format_tag_tdt(pclass, format)
 
-    if wordmap['symbol']:
-        for subcat in wordmap['symbol'].split('|'):
-            wordmap['analysis'] += format_tag_tdt(subcat, format)
+    if wordmap["symbol"]:
+        for subcat in wordmap["symbol"].split("|"):
+            wordmap["analysis"] += format_tag_tdt(subcat, format)
 
-    if wordmap['subcat']:
-        for subcat in wordmap['subcat'].split('|'):
-            wordmap['analysis'] += format_tag_tdt(subcat, format)
+    if wordmap["subcat"]:
+        for subcat in wordmap["subcat"].split("|"):
+            wordmap["analysis"] += format_tag_tdt(subcat, format)
 
-    if wordmap['is_proper']:
-        if '+propers' in format and wordmap['proper_noun_class']:
-            for prop in wordmap['proper_noun_class'].split(','):
-                wordmap['analysis'] += format_tag_tdt(prop, format)
+    if wordmap["is_proper"]:
+        if "+propers" in format and wordmap["proper_noun_class"]:
+            for prop in wordmap["proper_noun_class"].split(","):
+                wordmap["analysis"] += format_tag_tdt(prop, format)
         else:
-            wordmap['analysis'] += format_tag_tdt('PROPER', format)
+            wordmap["analysis"] += format_tag_tdt("PROPER", format)
 
-    if '+semantics' in format and wordmap['sem']:
-        for sem in wordmap['sem'].split(','):
-            wordmap['analysis'] += format_tag_tdt(sem, format)
+    if "+semantics" in format and wordmap["sem"]:
+        for sem in wordmap["sem"].split(","):
+            wordmap["analysis"] += format_tag_tdt(sem, format)
 
-    if wordmap['style']:
-        wordmap['analysis'] += format_tag_tdt(wordmap['style'], format)
+    if wordmap["style"]:
+        wordmap["analysis"] += format_tag_tdt(wordmap["style"], format)
 
-    if '+ktnkav' in format and wordmap['pos'] != 'ACRONYM':
-        tag = "[KTN=%s]" % (lexc_escape(wordmap['kotus_tn']))
+    if "+ktnkav" in format and wordmap["pos"] != "ACRONYM":
+        tag = "[KTN=%s]" % (lexc_escape(wordmap["kotus_tn"]))
         if tag in OmorFormatter.ktnkav_multichars:
-            wordmap['analysis'] += tag
-            if wordmap['kotus_av']:
-                wordmap['analysis'] += "[KAV=%(kotus_av)s]" % (wordmap)
-    elif '+newparas' in format:
-        wordmap['analysis'] += "[NEWPARA=%s]" % (wordmap['new_para'])
+            wordmap["analysis"] += tag
+            if wordmap["kotus_av"]:
+                wordmap["analysis"] += "[KAV=%(kotus_av)s]" % (wordmap)
+    elif "+newparas" in format:
+        wordmap["analysis"] += "[NEWPARA=%s]" % (wordmap["new_para"])
 
     # match WORD_ID= with epsilon, then stub and lemma might match
-    lex_stub = '0' + wordmap['stub']
-    return "%s:%s\t%s\t;" % (wordmap['analysis'], lex_stub,
-                             wordmap['new_para'])
+    lex_stub = "0" + wordmap["stub"]
+    return "%s:%s\t%s\t;" % (wordmap["analysis"], lex_stub,
+                             wordmap["new_para"])
 
 
 def format_multichars_lexc_tdt():
-    multichars = ''
+    multichars = ""
     for mcs in tdt_multichars:
         multichars += mcs + "\n"
     return multichars
 
 
 # self test
-if __name__ == '__main__':
+if __name__ == "__main__":
     fail = False
     for stuff, tdt in stuff2tdt.items():
         if len(tdt) < 2:

@@ -20,10 +20,10 @@
 # utils to format apertium style data from omorfi database values
 
 from ..error_logging import fail_formatting_missing_for, just_fail
-from .formatter import Formatter
-from ..settings import (deriv_boundary, morph_boundary, stub_boundary,
-                        weak_boundary, word_boundary)
+from ..settings import (DERIV_BOUNDARY, MORPH_BOUNDARY, STUB_BOUNDARY,
+                        WEAK_BOUNDARY, WORD_BOUNDARY)
 from ..string_manglers import lexc_escape
+from .formatter import Formatter
 
 
 class GiellaFormatter(Formatter):
@@ -31,167 +31,167 @@ class GiellaFormatter(Formatter):
 
     ## Giellatekno style analysis tags
     giella_multichars = {
-        '+A',
-        '+ABBR',
-        '+Abe',
-        '+Abl',
-        '+Acc',
-        '+Act',
-        '+ACR',
-        '+Ade',
-        '+Adp',
-        '+Adp+Po',
-        '+Adp+Pr',
-        '+Adv',
-        '+AgPrc',
-        '+All',
-        '+Card',
-        '+CC',
-        '+Com',
-        '+Comp',
-        '+Cmp',
-        '+Cond',
-        '+ConNeg',
-        '+CS',
-        '+Dash',
-        '+Dem',
+        "+A",
+        "+ABBR",
+        "+Abe",
+        "+Abl",
+        "+Acc",
+        "+Act",
+        "+ACR",
+        "+Ade",
+        "+Adp",
+        "+Adp+Po",
+        "+Adp+Pr",
+        "+Adv",
+        "+AgPrc",
+        "+All",
+        "+Card",
+        "+CC",
+        "+Com",
+        "+Comp",
+        "+Cmp",
+        "+Cond",
+        "+ConNeg",
+        "+CS",
+        "+Dash",
         "+Dem",
-        '+Der/inint',
-        '+Der/nen',
-        '+Der/inen',
-        '+Der/hko',
-        '+Der/ja',
-        '+Der/lainen',
-        '+Der/llinen',
-        '+Der/maisilla',
-        '+Der/minen',
-        '+Der/nti',
-        '+Der/sti',
+        "+Dem",
+        "+Der/inint",
+        "+Der/nen",
+        "+Der/inen",
+        "+Der/hko",
+        "+Der/ja",
+        "+Der/lainen",
+        "+Der/llinen",
+        "+Der/maisilla",
+        "+Der/minen",
+        "+Der/nti",
         "+Der/sti",
-        '+Der/tar',
-        '+Der/tattaa',
-        '+Der/tatuttaa',
-        '+Der/tuttaa',
-        '+Der/mainen',
-        '+Der/isa',
-        '+Der/ton',
-        '+Der/tse',
-        '+Der/ttaa',
-        '+Der/ttain',
-        '+Der/u',
-        '+Der/uus',
-        '+Der/vs',
-        '+Dial/Finland',
-        '+Dial/East',
-        '+Dial/Eteläpohjalaiset',
-        '+Dial/Häme',
-        '+Dial/Keskipohjalaiset',
-        '+Dial/North',
-        '+Dial/Peräpohjalaiset',
-        '+Dial/Savo',
-        '+Dial/Southeast',
-        '+Dial/Southwest',
-        '+Dial/Standard',
-        '+Dial/West',
-        '+Digit',
-        '+Ela',
-        '+Err/Orth',
-        '+Err/Sub',
-        '+Ess',
-        '+Foc/han',
-        '+Foc/ka',
-        '+Foc/kaan',
-        '+Foc/kin',
-        '+Foc/ko',
-        '+Foc/pa',
-        '+Foc/s',
-        '+Gen',
-        '+Ill',
-        '+Impv',
+        "+Der/sti",
+        "+Der/tar",
+        "+Der/tattaa",
+        "+Der/tatuttaa",
+        "+Der/tuttaa",
+        "+Der/mainen",
+        "+Der/isa",
+        "+Der/ton",
+        "+Der/tse",
+        "+Der/ttaa",
+        "+Der/ttain",
+        "+Der/u",
+        "+Der/uus",
+        "+Der/vs",
+        "+Dial/Finland",
+        "+Dial/East",
+        "+Dial/Eteläpohjalaiset",
+        "+Dial/Häme",
+        "+Dial/Keskipohjalaiset",
+        "+Dial/North",
+        "+Dial/Peräpohjalaiset",
+        "+Dial/Savo",
+        "+Dial/Southeast",
+        "+Dial/Southwest",
+        "+Dial/Standard",
+        "+Dial/West",
+        "+Digit",
+        "+Ela",
+        "+Err/Orth",
+        "+Err/Sub",
+        "+Ess",
+        "+Foc/han",
+        "+Foc/ka",
+        "+Foc/kaan",
+        "+Foc/kin",
+        "+Foc/ko",
+        "+Foc/pa",
+        "+Foc/s",
+        "+Gen",
+        "+Ill",
+        "+Impv",
         "+Indef",
-        '+Ine',
-        '+InfA',
-        '+InfE',
-        '+InfMA',
-        '+Inf1',
-        '+Inf2',
-        '+Inf3',
-        '+Ins',
-        '+Interj',
-        '+Interr',
+        "+Ine",
+        "+InfA",
+        "+InfE",
+        "+InfMA",
+        "+Inf1",
+        "+Inf2",
+        "+Inf3",
+        "+Ins",
+        "+Interj",
         "+Interr",
-        '+Lat',
-        '+Man',
-        '+N',
-        '+N+Abbr',
-        '+Neg',
-        '+NegPrc',
-        '+Nom',
-        '+Num',
-        '+OLang/eng',
-        '+Opt',
-        '+Ord',
-        '+Par',
-        '+Pass',
-        '+Pcle',
-        '+Pe4',
-        '+Pers',
+        "+Interr",
+        "+Lat",
+        "+Man",
+        "+N",
+        "+N+Abbr",
+        "+Neg",
+        "+NegPrc",
+        "+Nom",
+        "+Num",
+        "+OLang/eng",
+        "+Opt",
+        "+Ord",
+        "+Par",
+        "+Pass",
+        "+Pcle",
+        "+Pe4",
         "+Pers",
-        '+Pl',
-        '+Pl1',
-        '+Pl2',
-        '+Pl3',
-        '+Po',
-        '+Pos',
-        '+Pot',
-        '+Pr',
-        '+Pref',
-        '+PrfPrc',
-        '+PrfPrc+Act',
-        '+PrfPrc+Pass',
-        '+Pron',
-        '+Prop',
-        '+Prs',
-        '+PrsPrc',
-        '+PrsPrc+Act',
-        '+PrsPrc+Pass',
-        '+Prt',
-        '+Pst',
-        '+Punct',
-        '+PxPl1',
-        '+PxPl2',
-        '+PxPl3',
-        '+PxSg1',
-        '+PxSg2',
-        '+PxSg3',
-        '+Px3',
+        "+Pers",
+        "+Pl",
+        "+Pl1",
+        "+Pl2",
+        "+Pl3",
+        "+Po",
+        "+Pos",
+        "+Pot",
+        "+Pr",
+        "+Pref",
+        "+PrfPrc",
+        "+PrfPrc+Act",
+        "+PrfPrc+Pass",
+        "+Pron",
+        "+Prop",
+        "+Prs",
+        "+PrsPrc",
+        "+PrsPrc+Act",
+        "+PrsPrc+Pass",
+        "+Prt",
+        "+Pst",
+        "+Punct",
+        "+PxPl1",
+        "+PxPl2",
+        "+PxPl3",
+        "+PxSg1",
+        "+PxSg2",
+        "+PxSg3",
+        "+Px3",
         "+Qnt",
-        '+Qst',
-        '+Qu',
-        '+Quote',
-        '+Refl',
+        "+Qst",
+        "+Qu",
+        "+Quote",
         "+Refl",
-        '+Rel',
+        "+Refl",
         "+Rel",
-        '+Roman',
-        '+Sem/Geo',
-        '+Sem/Human',
-        '+Sem/Org',
-        '+Sg',
-        '+Sg1',
-        '+Sg2',
-        '+Sg3',
-        '+Suff',
-        '+Superl',
-        '+Tra',
-        '+Trunc',
-        '+TruncPrefix',
-        'TruncSuffix+',
-        '+Use/Arch',
-        '+Use/Circ',
-        '+Use/Marg',
-        '+Use/Rare',
-        '+V'
+        "+Rel",
+        "+Roman",
+        "+Sem/Geo",
+        "+Sem/Human",
+        "+Sem/Org",
+        "+Sg",
+        "+Sg1",
+        "+Sg2",
+        "+Sg3",
+        "+Suff",
+        "+Superl",
+        "+Tra",
+        "+Trunc",
+        "+TruncPrefix",
+        "TruncSuffix+",
+        "+Use/Arch",
+        "+Use/Circ",
+        "+Use/Marg",
+        "+Use/Rare",
+        "+V"
     }
 
     ## Omorfi to giellatekno tag mapping
@@ -435,11 +435,11 @@ class GiellaFormatter(Formatter):
             self.tainted = True
 
     def stuff2lexc(self, stuff):
-        """Convert omorfi analysis to giellatekno's lexc.
+        """Convert omorfi analysis to giellatekno’s lexc.
 
         @return lexc-formatted string containing giellatekno tag(s)
         """
-        if stuff == '0':
+        if stuff == "0":
             return "0"
         elif stuff in self.stuff2giella:
             return self.stuff2giella[stuff]
@@ -453,11 +453,11 @@ class GiellaFormatter(Formatter):
         @return lexc-formatted string containing giellatekno tags and lemma
         """
         giellastring = ""
-        for anal in anals.split('|'):
-            if anal == '@@COPY-STEM@@':
+        for anal in anals.split("|"):
+            if anal == "@@COPY-STEM@@":
                 giellastring += lexc_escape(surf)
-            elif anal.startswith('@@LITERAL:') and anal.endswith('@@'):
-                giellastring += lexc_escape(anal[len('@@LITERAL:'):-len('@@')])
+            elif anal.startswith("@@LITERAL:") and anal.endswith("@@"):
+                giellastring += lexc_escape(anal[len("@@LITERAL:"):-len("@@")])
             else:
                 giellastring += self.stuff2lexc(anal)
         return giellastring
@@ -468,50 +468,50 @@ class GiellaFormatter(Formatter):
         @return lexc-date for omorfi continuation class
         """
         giellastring = self.analyses2lexc(anals, surf)
-        if 'DIGITS_' in cont and not ('BACK' in cont or 'FRONT' in cont):
+        if "DIGITS_" in cont and not ("BACK" in cont or "FRONT" in cont):
             giellastring = lexc_escape(surf) + giellastring
-        surf = lexc_escape(surf.replace(morph_boundary, ">")
-                           .replace(deriv_boundary, "»")
-                           .replace(word_boundary, "")
-                           .replace(stub_boundary, ""))
-        return "%s:%s\t%s ;\n" % (giellastring, surf, cont)
+        surf = lexc_escape(surf.replace(MORPH_BOUNDARY, ">")
+                           .replace(DERIV_BOUNDARY, "»")
+                           .replace(WORD_BOUNDARY, "")
+                           .replace(STUB_BOUNDARY, ""))
+        return f"{giellastring}:{surf}\t{cont}  ;\n"
 
     def wordmap2lexc(self, wordmap):
-        '''
+        """
         format string for canonical giella format for morphological analysis
 
         @return lexc-formatted lexical entry for a giellatekno word.
-        '''
-        wordmap['analysis'] = lexc_escape(
-            wordmap['lemma'].replace(word_boundary, '#'))
-        if wordmap['pos'] == 'CONJUNCTIONVERB':
-            if wordmap['lemma'] == 'eikä':
-                wordmap['lemma'] = 'ei'
-                wordmap['analysis'] = self.stuff2lexc('COORDINATING') + \
-                    self.stuff2lexc('Nneg')
+        """
+        wordmap["analysis"] = lexc_escape(
+            wordmap["lemma"].replace(WORD_BOUNDARY, "#"))
+        if wordmap["pos"] == "CONJUNCTIONVERB":
+            if wordmap["lemma"] == "eikä":
+                wordmap["lemma"] = "ei"
+                wordmap["analysis"] = self.stuff2lexc("COORDINATING") + \
+                    self.stuff2lexc("Nneg")
             else:
-                wordmap['analysis'] = self.stuff2lexc('ADVERBIAL') + \
-                    self.stuff2lexc('Nneg')
+                wordmap["analysis"] = self.stuff2lexc("ADVERBIAL") + \
+                    self.stuff2lexc("Nneg")
         else:
-            wordmap['analysis'] += self.stuff2lexc(wordmap['pos'])
-        if wordmap['is_proper']:
-            wordmap['analysis'] += self.stuff2lexc('PROPER')
-            if wordmap['proper_noun_class']:
-                wordmap['analysis'] +=\
-                    self.stuff2lexc(wordmap['proper_noun_class'])
-        if wordmap['particle']:
-            for pclass in wordmap['particle'].split('|'):
-                wordmap['analysis'] += self.stuff2lexc(pclass)
-        if wordmap['symbol']:
-            for subcat in wordmap['symbol'].split('|'):
-                wordmap['analysis'] += self.stuff2lexc(subcat)
-        lex_stub = lexc_escape(wordmap['stub'].replace(word_boundary, "")
-                               .replace(weak_boundary, "")
-                               .replace(deriv_boundary, "»")
-                               .replace(morph_boundary, ">"))
-        lexc_line = "%s:%s\t%s\t;" % (wordmap['analysis'], lex_stub,
-                                      wordmap['new_para'])
-        if 'BLACKLISTED' in wordmap['new_para']:
+            wordmap["analysis"] += self.stuff2lexc(wordmap["pos"])
+        if wordmap["is_proper"]:
+            wordmap["analysis"] += self.stuff2lexc("PROPER")
+            if wordmap["proper_noun_class"]:
+                wordmap["analysis"] +=\
+                    self.stuff2lexc(wordmap["proper_noun_class"])
+        if wordmap["particle"]:
+            for pclass in wordmap["particle"].split("|"):
+                wordmap["analysis"] += self.stuff2lexc(pclass)
+        if wordmap["symbol"]:
+            for subcat in wordmap["symbol"].split("|"):
+                wordmap["analysis"] += self.stuff2lexc(subcat)
+        lex_stub = lexc_escape(wordmap["stub"].replace(WORD_BOUNDARY, "")
+                               .replace(WEAK_BOUNDARY, "")
+                               .replace(DERIV_BOUNDARY, "»")
+                               .replace(MORPH_BOUNDARY, ">"))
+        lexc_line = "%s:%s\t%s\t;" % (wordmap["analysis"], lex_stub,
+                                      wordmap["new_para"])
+        if "BLACKLISTED" in wordmap["new_para"]:
             return "! ! !" + lexc_line
         else:
             return lexc_line
@@ -536,13 +536,13 @@ class GiellaFormatter(Formatter):
         if True:
             # want co-ordinated hyphens left
             root += "!! LEXICONS that can be co-ordinated hyphen -compounds\n"
-            root += self.stuff2lexc('B→') + ':-   NOUN ;\n'
-            root += self.stuff2lexc('B→') + ':-   ADJ ;\n'
-            root += self.stuff2lexc('B→') + ':-   SUFFIX ;\n'
+            root += self.stuff2lexc("B→") + ":-   NOUN ;\n"
+            root += self.stuff2lexc("B→") + ":-   ADJ ;\n"
+            root += self.stuff2lexc("B→") + ":-   SUFFIX ;\n"
         return root
 
 
 # self test
-if __name__ == '__main__':
+if __name__ == "__main__":
     formatter = GiellaFormatter()
     exit(0)

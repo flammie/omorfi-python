@@ -6,16 +6,16 @@ File format I/O handlings
 
 from sys import stderr
 
-from ..token import Token
 from ..analysis import Analysis
+from ..token import Token
 
 
 def next_plaintext(f):
-    '''tokenise a line of text.
+    """tokenise a line of text.
 
-    This tokenisation only uses split and only considers tokens '?', '!', and
-    '.' as the end of a sentence.'''
-    tokens = list()
+    This tokenisation only uses split and only considers tokens "?", "!", and
+    "." as the end of a sentence."""
+    tokens = []
     for line in f:
         surfs = line.strip().split()
         pos = 1
@@ -42,23 +42,23 @@ def next_plaintext(f):
 
 
 def next_conllu(f):
-    '''tokenise a conllu sentence or comment.
+    """tokenise a conllu sentence or comment.
 
     Should be used on a file-like iterable that has CONLL-U sentence or
-    comment or empty block coming up.'''
-    tokens = list()
+    comment or empty block coming up."""
+    tokens = []
     for line in f:
-        fields = line.strip().split('\t')
+        fields = line.strip().split("\t")
         token = Token()
         if len(fields) != 10:
-            if line.startswith('#'):
+            if line.startswith("#"):
                 token.nontoken = "comment"
                 token.comment = line.strip()
                 tokens.append(token)
                 return tokens
-            elif line.strip() == '':
+            elif line.strip() == "":
                 token.nontoken = "separator"
-                token.comment = ''
+                token.comment = ""
                 tokens.append(token)
                 return tokens
             else:
@@ -70,10 +70,10 @@ def next_conllu(f):
         try:
             index = int(fields[0])
         except ValueError:
-            if '-' in fields[0]:
+            if "-" in fields[0]:
                 # MWE
                 continue
-            elif '.' in fields[0]:
+            elif "." in fields[0]:
                 # a ghost
                 continue
             else:
@@ -84,18 +84,18 @@ def next_conllu(f):
         if index == 1:
             token.firstinsent = True
         token.surf = fields[1]
-        if fields[9] != '_':
-            miscs = fields[9].split('|')
+        if fields[9] != "_":
+            miscs = fields[9].split("|")
             for misc in miscs:
-                k, v = misc.split('=')
-                if k == 'SpaceAfter':
+                k, v = misc.split("=")
+                if k == "SpaceAfter":
                     token.spaceafter = v
-                elif k in ['Alt', 'FTB-PronType', 'FTB-Rel',
-                           'Missed-Rel', 'FTB-rel', 'Join',
-                           'Missed-SUBCAT', 'FTB-Sub', 'Prefix',
-                           'FTB1-InfForm', 'Missed-POSITION',
-                           'Was18', 'Was18punct', 'Was18punch',
-                           'Was18propnum', 'Was18mark']:
+                elif k in ["Alt", "FTB-PronType", "FTB-Rel",
+                           "Missed-Rel", "FTB-rel", "Join",
+                           "Missed-SUBCAT", "FTB-Sub", "Prefix",
+                           "FTB1-InfForm", "Missed-POSITION",
+                           "Was18", "Was18punct", "Was18punch",
+                           "Was18propnum", "Was18mark"]:
                     # FTB stuff
                     pass
                 else:
@@ -109,22 +109,22 @@ def next_conllu(f):
 
 
 def next_finer(f):
-    '''tokenise a finer sentence.
+    """tokenise a finer sentence.
 
     Should be used on a file-like iterable that has finer sentence.
-    '''
-    tokens = list()
+    """
+    tokens = []
     index = 1
     for line in f:
-        fields = line.strip().split('\t')
+        fields = line.strip().split("\t")
         token = Token()
         if len(fields) != 2 and len(fields) != 3:
-            if line.strip() == '':
+            if line.strip() == "":
                 token.nontoken = "separator"
-                token.comment = ''
+                token.comment = ""
                 tokens.append(token)
                 return tokens
-            elif line.startswith('<') and line.strip().endswith('>'):
+            elif line.startswith("<") and line.strip().endswith(">"):
                 token.nontoken = "markup?"
                 token.comment = line.strip()
                 tokens.append(token)
@@ -149,32 +149,32 @@ def next_finer(f):
 
 
 def next_vislcg(f, isgold=True):
-    '''Tokenises a sentence from VISL-CG format data.
+    """Tokenises a sentence from VISL-CG format data.
 
     Returns a list of tokens when it hits first non-token block, including
     a token representing this non-token block. If the block contains analyses
     as well as surface forms, they will be processed too.
 
     Args:
-        isgold: if True, the VISL CG-3 analyses are read into token's gold
-                analysis data, otherwise they are appended to token's analyses
+        isgold: if True, the VISL CG-3 analyses are read into token’s gold
+                analysis data, otherwise they are appended to token’s analyses
                 list.
 
     Returns:
         list of tokens found in f at its current read position, up to and
         including next non-token found (can be EOF).
-    '''
-    tokens = list()
+    """
+    tokens = []
     pos = 1
     token = None
     for line in f:
         line = line.rstrip()
-        if not line or line == '':
+        if not line or line == "":
             if token:
                 tokens.append(token)
             token = Token()
             token.nontoken = "separator"
-            token.comment = ''
+            token.comment = ""
             tokens.append(token)
             return tokens
         elif line.startswith("#") or line.startswith("<"):
@@ -187,7 +187,7 @@ def next_vislcg(f, isgold=True):
             token.comment = line.strip()
             tokens.append(token)
             return tokens
-        elif line.startswith('"<') and line.endswith('>"'):
+        elif line.startswith("\"<") and line.endswith(">\""):
             # "<surf>"
             if token:
                 tokens.append(token)
@@ -197,19 +197,19 @@ def next_vislcg(f, isgold=True):
             if pos == 1:
                 token.firstinsent = True
             pos += 1
-        elif line.startswith('\t"'):
+        elif line.startswith("\t\""):
             # \t"lemma" ANAL ANAL ANAL
             if isgold:
                 token.gold = line.strip()
             else:
                 anal = Analysis.fromvislcg(line)
                 token.analyses.append(anal)
-        elif line.startswith(';\t"'):
+        elif line.startswith(";\t\""):
             # ;\t"lemma" ANAL ANAL ANAL KEYWORD:rulename
             pass
         else:
             token.nontoken = "error"
-            token.error = 'vislcg: ' + line.strip()
+            token.error = "vislcg: " + line.strip()
     if token:
         tokens.append(token)
     eoft = Token()
@@ -219,6 +219,6 @@ def next_vislcg(f, isgold=True):
 
 
 def next_omorfi(f):
-    '''Read next block in omorfi internal stream format.'''
+    """Read next block in omorfi internal stream format."""
     tokens = []
     return tokens

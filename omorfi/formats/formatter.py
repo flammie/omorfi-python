@@ -25,7 +25,7 @@ An interface for formatting, deformatting etc. tags and stuff.
 
 from abc import ABCMeta, abstractmethod
 
-from ..settings import common_multichars, version_id_easter_egg
+from ..settings import COMMON_MULTICHARS, VERSION_ID_EASTER_EGG
 
 
 class Formatter(metaclass=ABCMeta):
@@ -48,7 +48,7 @@ class Formatter(metaclass=ABCMeta):
 
     def __init__(self, verbosity=False, **kwargs):
         """Construct formatter with given verbosity.
-        
+
         @param verbosity whether to print messages while processing
         @param kwargs keyword map to determine what automata to load
         """
@@ -56,7 +56,7 @@ class Formatter(metaclass=ABCMeta):
 
     def copyright_lexc(self):
         """Return copyright declaration in lexc format.
-        
+
         @return string holding current copyright declaration in lexc comment.
         """
         return "! Copyright 2015 Omorfi Contributors, GNU GPLv3"
@@ -65,7 +65,7 @@ class Formatter(metaclass=ABCMeta):
     def multichars_lexc(self):
         """Return multichar declaration in lexc format"""
         multichars = "!! Following specials exist in all versions of omorfi\n"
-        for mcs in sorted(common_multichars):
+        for mcs in sorted(COMMON_MULTICHARS):
             multichars += mcs + "\n"
         return multichars
 
@@ -95,7 +95,7 @@ class Formatter(metaclass=ABCMeta):
     0   DET    ;
     0   X    ;
     """
-        root += version_id_easter_egg + ':__omorfi # ;\n'
+        root += VERSION_ID_EASTER_EGG + ":__omorfi # ;\n"
         return root
 
     @abstractmethod

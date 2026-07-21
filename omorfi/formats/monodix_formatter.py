@@ -22,7 +22,7 @@
 import sys
 
 from ..error_logging import fail_formatting_missing_for
-from ..settings import deriv_boundary, morph_boundary, optional_hyphen, stub_boundary, weak_boundary, word_boundary
+from ..settings import DERIV_BOUNDARY, MORPH_BOUNDARY, OPTIONAL_HYPHEN, STUB_BOUNDARY, WEAK_BOUNDARY, WORD_BOUNDARY
 from .apertium_formatter import ApertiumFormatter
 
 monodix_sdefs = {
@@ -360,10 +360,10 @@ def format_monodix_sdefs():
 
 def format_monodix_l(s):
     if s != "0":
-        return s.replace(" ", "<b/>").replace(word_boundary, "") \
-            .replace(morph_boundary, "").replace(deriv_boundary, "")\
-            .replace(stub_boundary, "").replace(optional_hyphen, "")\
-            .replace(weak_boundary, "")
+        return s.replace(" ", "<b/>").replace(WORD_BOUNDARY, "") \
+            .replace(MORPH_BOUNDARY, "").replace(DERIV_BOUNDARY, "")\
+            .replace(STUB_BOUNDARY, "").replace(OPTIONAL_HYPHEN, "")\
+            .replace(WEAK_BOUNDARY, "")
     else:
         return ""
 
@@ -429,7 +429,7 @@ def format_monodix_entry(wordmap):
     e = "<e lm=\"" + wordmap["lemma"].replace("&", "&amp;")\
         .replace("\"", "&quot;").replace("<", "&lt;") + "\">"
     e += "<p><l>" + \
-        wordmap["stub"].replace(word_boundary, "").replace(
+        wordmap["stub"].replace(WORD_BOUNDARY, "").replace(
             "&", "&amp;").replace("<", "&lt;") + "</l>"
     e += "<r>"
     e += wordmap["lemma"].replace("&", "&amp;").replace("<", "&lt;")
