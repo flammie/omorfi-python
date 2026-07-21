@@ -154,10 +154,10 @@ def main():
     a.add_argument('-i', '--input', metavar="INFILE", type=open,
                    dest="infile", help="source of analysis data")
     a.add_argument('-o', '--output', metavar="OUTFILE",
-                   type=FileType('w'),
+                   type=FileType('w', encoding="UTF-8"),
                    dest="outfile", help="log outputs to OUTFILE")
     a.add_argument('-X', '--statistics', metavar="STATFILE",
-                   type=FileType('w'),
+                   type=FileType('w', encoding="UTF-8"),
                    dest="statfile", help="statistics")
     a.add_argument('-v', '--verbose', action="store_true", default=False,
                    help="Print verbosely while processing")

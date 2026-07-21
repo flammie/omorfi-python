@@ -20,7 +20,8 @@ def main():
     a.add_argument('-v', '--verbose', action='store_true',
                    help="print verbosely while processing")
     a.add_argument('-o', '--output', metavar="OUTFILE", dest="outfile",
-                   help="print output into OUTFILE", type=FileType('w'))
+                   help="print output into OUTFILE",
+                   type=FileType('w', encoding="UTF-8"))
     a.add_argument('-I', '--informat', metavar="INFORMAT", required=True,
                    help="read input using INFORMAT tokenisation",
                    choices=['tokens', 'vislcg', 'conllu', 'omorfi'])

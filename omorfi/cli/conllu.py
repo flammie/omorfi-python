@@ -93,9 +93,11 @@ def main():
     a.add_argument('-v', '--verbose', action='store_true',
                    help="print verbosely while processing")
     a.add_argument('-o', '--output', metavar="OUTFILE", dest="outfile",
-                   help="print output into OUTFILE", type=FileType('w'))
+                   help="print output into OUTFILE",
+                   type=FileType('w', encoding="UTF-8"))
     a.add_argument('-x', '--statistics', metavar="STATFILE", dest="statfile",
-                   help="print statistics to STATFILE", type=FileType('w'))
+                   help="print statistics to STATFILE",
+                   type=FileType('w', encoding="UTF-8"))
     a.add_argument('-O', '--oracle', action='store_true',
                    help="match to values in input when parsing if possible")
     a.add_argument('-u', '--udpipe', metavar="UDPIPE",

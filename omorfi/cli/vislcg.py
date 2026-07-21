@@ -5,14 +5,14 @@
 # string munging
 from argparse import ArgumentParser, FileType
 # CLI stuff
-from sys import stdin, stdout, stderr
+from sys import stderr, stdin, stdout
 # statistics
 from time import perf_counter, process_time
 
 # omorfi
 from omorfi import Omorfi
-from omorfi.formats.fileformats import next_conllu, next_vislcg, next_plaintext
 from omorfi.disamparsulate import Disamparsulator
+from omorfi.formats.fileformats import next_conllu, next_plaintext, next_vislcg
 
 
 def main():
@@ -25,12 +25,14 @@ def main():
     a.add_argument('-v', '--verbose', action='store_true',
                    help="print verbosely while processing")
     a.add_argument('-o', '--output', metavar="OUTFILE", dest="outfile",
-                   help="print output into OUTFILE", type=FileType('w'))
+                   help="print output into OUTFILE",
+                   type=FileType('w', encoding="UTF-8"))
     a.add_argument('-F', '--format', metavar="INFORMAT", default='text',
                    help="read input using INFORMAT tokenisation",
                    choices=['text', 'vislcg', 'conllu', 'sentences'])
     a.add_argument('-x', '--statistics', metavar="STATFILE", dest="statfile",
-                   help="print statistics to STATFILE", type=FileType('w'))
+                   help="print statistics to STATFILE",
+                   type=FileType('w', encoding="UTF-8"))
     a.add_argument('--not-rules', metavar="RULEFILE", type=open,
                    help="read non-rules from RULEFILE")
     options = a.parse_args()
