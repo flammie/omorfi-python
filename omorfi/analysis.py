@@ -327,6 +327,8 @@ class Analysis:
                     a.ufeats["Style"] = "Arch"
                 elif value == "RARE":
                     continue
+                elif value == "FORMAL":
+                    a.ufeats["Polite"] = "Form"
                 else:
                     print(key, value, "STYLE", "UD")
                     exit(1)
