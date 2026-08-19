@@ -12,7 +12,7 @@ from time import perf_counter, process_time
 # omorfi
 from omorfi import Omorfi
 from omorfi.disamparsulate import Disamparsulator
-from omorfi.formats.fileformats import next_conllu, next_plaintext, next_vislcg
+from omorfi.fileformats import next_conllu, next_plaintext, next_vislcg
 
 
 def main():

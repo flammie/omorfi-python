@@ -8,9 +8,7 @@ Contains single hypothesis of single aspect of things.
 
 import re
 from sys import stderr
-
-from .formats.omor_formatter import OmorFormatter
-
+from .convert import get_lemmas_omor, get_upos_omor, get_last_feats_omor
 
 class Analysis:
     """Contains a single analysis of a token.
@@ -135,11 +133,11 @@ class Analysis:
         a.raw = s
         a.rawtype = "omor"
         a.weight = weight
-        a.upos = OmorFormatter.get_upos(s)
-        a.lemmas = OmorFormatter.get_lemmas(s)
+        a.upos = get_upos_omor(s)
+        a.lemmas = get_lemmas_omor(s)
         a.weight += (len(a.lemmas) - 1) * 10
         a.weight += s.count("DRV") * 5
-        feats = OmorFormatter.get_last_feats(s)
+        feats = get_last_feats_omor(s)
         if not feats:
             a.ufeats = None
             return a

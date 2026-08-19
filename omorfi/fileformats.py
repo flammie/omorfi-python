@@ -6,8 +6,8 @@ File format I/O handlings
 
 from sys import stderr
 
-from ..analysis import Analysis
-from ..token import Token
+from .analysis import Analysis
+from .token import Token
 
 
 def next_plaintext(f):
