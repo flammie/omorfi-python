@@ -13,7 +13,7 @@ from time import perf_counter, process_time
 # omorfi
 import csv
 from omorfi import Omorfi
-from omorfi.formats.fileformats import next_finer
+from omorfi.fileformats import next_finer
 
 
 def propntype2ner(s):
