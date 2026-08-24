@@ -629,7 +629,7 @@ class Analysis:
                          "GUESS", "PROPER", "SEM", "CONJ", "BOUNDARY",
                          "PCP", "DRV", "LEX", "BLACKLIST", "Style",
                          "POSITION", "Foreign", "VerbForm",
-                         "Typo"]:
+                         "Typo", "Polite"]:
                 continue
             else:
                 print(key, value, "FTB3")
